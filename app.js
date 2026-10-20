@@ -46,9 +46,10 @@ function loadActivities(data){
   ACT_EN = data.activities.map(a => mk(a, "en"));
   ACT_TE = data.activities.map(a => mk(a, "te"));
 }
-function findActivity(text, l){
+function findActivity(text, l, onlyToyWords){
   const list = l === "te" ? ACT_TE : ACT_EN;
-  return list.find(a => (a.keywords || []).some(k => l === "te" ? text.includes(k) : has(text, k.toLowerCase())));
+  const hit = k => (l === "te" ? text.includes(k) : has(text, k.toLowerCase())) && (!onlyToyWords || k.includes("బొమ్మ") || /toy/i.test(k));
+  return list.find(a => (a.keywords || []).some(hit));
 }
 function askedFor8Months(text, l){ return !!ACT && (ACT.keywords[l] || []).some(k => l === "te" ? text.includes(k) : has(text, k.toLowerCase())); }
 function enPool(topic){
@@ -193,7 +194,8 @@ function handle(raw){
 function showActivity(l, act){
   const pool = l === "te" ? tePool("game") : enPool("game");
   const index = Math.max(0, pool.indexOf(act));
-  const card = l === "te" ? teCardFromItem("game", act, "", null) : enCardFromItem(act);
+  const teReply = (TE.intents.find(i => i.id === "game") || {replies:[""]}).replies[0];
+  const card = l === "te" ? teCardFromItem("game", act, teReply, null) : enCardFromItem(act);
   show({lang: l, topic: "game", index, card}, true);
 }
 function enCardFromItem(item){
@@ -201,6 +203,8 @@ function enCardFromItem(item){
 }
 function handleTe(raw){
   let r = te.matchTelugu(raw, TE);
+  // బొమ్మ means both "toy" and "picture": a toy activity ("బొమ్మ దాచు") wins over the picture intent.
+  if (ACT && r.intent === "picture"){ const act = findActivity(raw, "te", true); if (act && fitsAge(act)) return showActivity("te", act); }
   if (ACT && (r.intent === "game" || r.intent === "unknown" || r.intent === "greeting")){
     const act = findActivity(raw, "te");
     if (act && fitsAge(act)) return showActivity("te", act);

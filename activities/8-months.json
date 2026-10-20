@@ -1,17 +1,33 @@
 {
   "_about": "Engagement activities for an 8-month-old baby, written for a grandparent babysitter. Data only, for the app builder to wire in. Each activity has English and Telugu (te) text in the same shape as content.js game items: title, needs, steps, plus safety lines that should be shown and spoken before the steps. 'skills' says what the play helps, for a short 'why this helps' line if wanted. 'keywords' are words a person may say to ask for it. Telugu text is a first draft and still needs review by the Telugu thread (see _telugu_status).",
-  "_telugu_status": "draft, not yet reviewed",
+  "_telugu_status": "reviewed by the Telugu thread 2026-10-20: 18 wording/clarity fixes applied (the size test now says 'bigger than an egg' since toilet-paper rolls are uncommon in Indian homes); ready to use",
   "age_months": 8,
-  "age_label": {"en": "8-month-old baby", "te": "8 నెలల బిడ్డ"},
-  "keywords": {
-    "en": ["8 month", "eight month", "8 months", "eight months", "baby activity", "play with baby", "what can I do with the baby"],
-    "te": ["8 నెలల", "ఎనిమిది నెలల", "చంటి బిడ్డతో ఆట", "బిడ్డతో ఏం చేయాలి", "బిడ్డతో ఆడుకోవడం"]
+  "age_label": {
+    "en": "8-month-old baby",
+    "te": "8 నెలల బిడ్డ"
   },
-
+  "keywords": {
+    "en": [
+      "8 month",
+      "eight month",
+      "8 months",
+      "eight months",
+      "baby activity",
+      "play with baby",
+      "what can I do with the baby"
+    ],
+    "te": [
+      "8 నెలల",
+      "ఎనిమిది నెలల",
+      "చంటి బిడ్డతో ఆట",
+      "బిడ్డతో ఏం చేయాలి",
+      "బిడ్డతో ఆడుకోవడం"
+    ]
+  },
   "general_safety": {
     "en": [
       "Never leave the baby alone, not even for a minute. Stay within arm's reach.",
-      "Babies put everything in the mouth. Only give things too big to fit through an empty toilet paper roll.",
+      "Babies put everything in the mouth. Only give things bigger than an egg (too big to fit through an empty toilet paper roll).",
       "Keep coins, button batteries, magnets, beads, safety pins and medicines far out of reach.",
       "No strings, cords, ribbons or necklaces near the baby.",
       "Play on a clean floor or mat, away from stairs, sharp corners and hot tea or coffee.",
@@ -20,24 +36,41 @@
     ],
     "te": [
       "బిడ్డను ఒక్క నిమిషం కూడా ఒంటరిగా వదలకండి. చేయి అందేంత దగ్గరలో ఉండండి.",
-      "బిడ్డ ప్రతిదీ నోట్లో పెట్టుకుంటుంది. ఖాళీ టాయిలెట్ పేపర్ గొట్టంలో పట్టనంత పెద్ద వస్తువులే ఇవ్వండి.",
-      "నాణేలు, చిన్న బ్యాటరీలు, అయస్కాంతాలు, పూసలు, పిన్నులు, మందులు బిడ్డకు అందనంత దూరంలో ఉంచండి.",
+      "బిడ్డ ప్రతిదీ నోట్లో పెట్టుకుంటుంది. కోడిగుడ్డు కంటే పెద్ద వస్తువులే ఇవ్వండి (ఖాళీ టాయిలెట్ పేపర్ గొట్టంలో పట్టనంత).",
+      "నాణేలు, బటన్ బ్యాటరీలు (గుండ్రటి చిన్న బ్యాటరీలు), అయస్కాంతాలు, పూసలు, పిన్నులు, మందులు బిడ్డకు అందనంత దూరంలో ఉంచండి.",
       "దారాలు, తాళ్ళు, రిబ్బన్లు, గొలుసులు బిడ్డ దగ్గర ఉంచకండి.",
       "శుభ్రమైన నేల మీద లేదా చాప మీద ఆడించండి. మెట్లు, పదునైన మూలలు, వేడి టీ కాఫీలకు దూరంగా ఉండండి.",
       "బిడ్డ ముఖం తిప్పుకున్నా, చిరాకు పడినా, కళ్ళు నలుపుకున్నా ఆట ఆపి విశ్రాంతి ఇవ్వండి.",
-      "ఈ ఫోన్ మీ కోసం, బిడ్డ కోసం కాదు. చిన్న బిడ్డలకు స్క్రీన్ చూపించవద్దని డాక్టర్లు చెబుతారు. కుటుంబంతో వీడియో కాల్ మాత్రం పరవాలేదు."
+      "ఈ ఫోన్ మీ కోసం, బిడ్డ కోసం కాదు. చిన్న బిడ్డలకు స్క్రీన్ చూపించవద్దని డాక్టర్లు చెబుతారు. కుటుంబంతో వీడియో కాల్ మాత్రం పర్వాలేదు."
     ]
   },
-
   "activities": [
     {
       "id": "peekaboo-cloth",
-      "skills": ["social", "memory"],
-      "keywords": {"en": ["peekaboo", "peek a boo", "hide face"], "te": ["దాగుడుమూతలు", "కూ కూ", "ముఖం దాచి"]},
-      "sources": ["cdc-9m"],
+      "skills": [
+        "social",
+        "memory"
+      ],
+      "keywords": {
+        "en": [
+          "peekaboo",
+          "peek a boo",
+          "hide face"
+        ],
+        "te": [
+          "దాగుడుమూతలు",
+          "కూ కూ",
+          "ముఖం దాచి"
+        ]
+      },
+      "sources": [
+        "cdc-9m"
+      ],
       "en": {
         "title": "Peekaboo with a cloth",
-        "needs": ["A thin cotton cloth or small towel"],
+        "needs": [
+          "A thin cotton cloth or small towel"
+        ],
         "steps": [
           "Sit face to face with the baby.",
           "Cover your own face with the cloth and say: Where is grandma?",
@@ -45,11 +78,15 @@
           "Next, lay the cloth lightly over the baby's head and let the baby pull it off.",
           "Repeat slowly. Babies love the surprise."
         ],
-        "safety": ["Use only a thin cloth the baby can see through or pull off easily. Never cover the baby's face with a thick blanket."]
+        "safety": [
+          "Use only a thin cloth the baby can see through or pull off easily. Never cover the baby's face with a thick blanket."
+        ]
       },
       "te": {
         "title": "గుడ్డతో దాగుడుమూతలు",
-        "needs": ["ఒక పలుచని నూలు గుడ్డ లేదా చిన్న తువ్వాలు"],
+        "needs": [
+          "ఒక పలుచని నూలు గుడ్డ లేదా చిన్న తువ్వాలు"
+        ],
         "steps": [
           "బిడ్డకు ఎదురుగా కూర్చోండి.",
           "గుడ్డతో మీ ముఖం కప్పుకుని, అమ్మమ్మ ఎక్కడ? అని అడగండి.",
@@ -57,17 +94,39 @@
           "తర్వాత గుడ్డను బిడ్డ తల మీద తేలికగా వేసి, బిడ్డే లాగేలా చేయండి.",
           "నెమ్మదిగా మళ్ళీ మళ్ళీ చేయండి. బిడ్డకు ఆ ఆశ్చర్యం చాలా ఇష్టం."
         ],
-        "safety": ["బిడ్డ సులువుగా లాగగలిగే పలుచని గుడ్డనే వాడండి. మందపాటి దుప్పటితో బిడ్డ ముఖం ఎప్పుడూ కప్పకండి."]
+        "safety": [
+          "బిడ్డ సులువుగా లాగగలిగే పలుచని గుడ్డనే వాడండి. మందపాటి దుప్పటితో బిడ్డ ముఖం ఎప్పుడూ కప్పకండి."
+        ]
       }
     },
     {
       "id": "find-hidden-toy",
-      "skills": ["memory", "thinking"],
-      "keywords": {"en": ["hide toy", "find the toy", "hidden toy"], "te": ["బొమ్మ దాచు", "బొమ్మ వెతుకు"]},
-      "sources": ["cdc-9m"],
+      "skills": [
+        "memory",
+        "thinking"
+      ],
+      "keywords": {
+        "en": [
+          "hide toy",
+          "find the toy",
+          "hidden toy"
+        ],
+        "te": [
+          "దాచిన బొమ్మ",
+          "బొమ్మ దాచు",
+          "బొమ్మ వెతుకు",
+          "వెతికే ఆట"
+        ]
+      },
+      "sources": [
+        "cdc-9m"
+      ],
       "en": {
         "title": "Find the hidden toy",
-        "needs": ["A favourite toy", "A small cloth or a steel bowl turned upside down"],
+        "needs": [
+          "A favourite toy",
+          "A small cloth or a steel bowl turned upside down"
+        ],
         "steps": [
           "Show the baby the toy and let the baby hold it.",
           "While the baby watches, cover the toy with the cloth or bowl.",
@@ -75,11 +134,16 @@
           "Let the baby lift the cloth. Cheer: You found it!",
           "If the baby does not look yet, leave a little of the toy showing."
         ],
-        "safety": ["Use a light bowl with no sharp edge, and a toy bigger than a toilet paper roll."]
+        "safety": [
+          "Use a light bowl with no sharp edge, and a toy bigger than an egg."
+        ]
       },
       "te": {
-        "title": "దాచిన బొమ్మను వెతకండి",
-        "needs": ["బిడ్డకు ఇష్టమైన బొమ్మ", "ఒక చిన్న గుడ్డ లేదా బోర్లించిన స్టీలు గిన్నె"],
+        "title": "దాచిన బొమ్మను వెతికే ఆట",
+        "needs": [
+          "బిడ్డకు ఇష్టమైన బొమ్మ",
+          "ఒక చిన్న గుడ్డ లేదా బోర్లించిన స్టీలు గిన్నె"
+        ],
         "steps": [
           "బొమ్మను బిడ్డకు చూపించి, పట్టుకోనివ్వండి.",
           "బిడ్డ చూస్తుండగానే బొమ్మను గుడ్డతో లేదా గిన్నెతో కప్పండి.",
@@ -87,17 +151,39 @@
           "బిడ్డే గుడ్డ తీసేలా చేయండి. దొరికింది! అని చప్పట్లు కొట్టండి.",
           "బిడ్డ ఇంకా వెతకకపోతే, బొమ్మ కొంచెం కనిపించేలా ఉంచండి."
         ],
-        "safety": ["పదునైన అంచు లేని తేలికైన గిన్నె, టాయిలెట్ పేపర్ గొట్టం కంటే పెద్ద బొమ్మ వాడండి."]
+        "safety": [
+          "పదునైన అంచు లేని తేలికైన గిన్నె, కోడిగుడ్డు కంటే పెద్ద బొమ్మ వాడండి."
+        ]
       }
     },
     {
       "id": "copy-the-babble",
-      "skills": ["talking", "social"],
-      "keywords": {"en": ["talk to baby", "babble", "baby talk", "first words"], "te": ["బిడ్డతో మాట్లాడటం", "ముద్దు మాటలు", "మాటలు నేర్పడం"]},
-      "sources": ["cdc-9m", "kidshealth-learn"],
+      "skills": [
+        "talking",
+        "social"
+      ],
+      "keywords": {
+        "en": [
+          "talk to baby",
+          "babble",
+          "baby talk",
+          "first words"
+        ],
+        "te": [
+          "బిడ్డతో మాట్లాడటం",
+          "ముద్దు మాటలు",
+          "మాటలు నేర్పడం"
+        ]
+      },
+      "sources": [
+        "cdc-9m",
+        "kidshealth-learn"
+      ],
       "en": {
         "title": "Copy the baby's sounds",
-        "needs": ["Nothing, just your voice"],
+        "needs": [
+          "Nothing, just your voice"
+        ],
         "steps": [
           "Hold the baby facing you, close enough to see your mouth.",
           "When the baby says a sound like ba-ba or ma-ma, say it back the same way.",
@@ -109,7 +195,9 @@
       },
       "te": {
         "title": "బిడ్డ మాటలను మీరూ అనండి",
-        "needs": ["ఏమీ అక్కర్లేదు, మీ గొంతు చాలు"],
+        "needs": [
+          "ఏమీ అక్కర్లేదు, మీ గొంతు చాలు"
+        ],
         "steps": [
           "బిడ్డ మీ నోరు చూడగలిగేలా ఎదురుగా పట్టుకోండి.",
           "బిడ్డ బ బ, మ మ అని అంటే, మీరూ అలాగే తిరిగి అనండి.",
@@ -122,12 +210,32 @@
     },
     {
       "id": "clap-wave-song",
-      "skills": ["social", "hands", "talking"],
-      "keywords": {"en": ["action song", "clap song", "wave bye bye", "song with actions"], "te": ["చప్పట్ల పాట", "టాటా", "చేతుల పాట"]},
-      "sources": ["cdc-9m"],
+      "skills": [
+        "social",
+        "hands",
+        "talking"
+      ],
+      "keywords": {
+        "en": [
+          "action song",
+          "clap song",
+          "wave bye bye",
+          "song with actions"
+        ],
+        "te": [
+          "చప్పట్ల పాట",
+          "టాటా",
+          "చేతుల పాట"
+        ]
+      },
+      "sources": [
+        "cdc-9m"
+      ],
       "en": {
         "title": "Clap and wave song",
-        "needs": ["Nothing, just your hands"],
+        "needs": [
+          "Nothing, just your hands"
+        ],
         "steps": [
           "Sit the baby on your lap facing you.",
           "Sing slowly: Clap, clap, little hands. Clap your hands like me.",
@@ -135,11 +243,15 @@
           "Sing: Wave, wave, bye-bye. Wave your hand like me. Then wave.",
           "Do the same moves every time. Soon the baby will copy you."
         ],
-        "safety": ["Hold the baby's hands softly. Never pull or swing the baby by the arms."]
+        "safety": [
+          "Hold the baby's hands softly. Never pull or swing the baby by the arms."
+        ]
       },
       "te": {
         "title": "చప్పట్లు, టాటా పాట",
-        "needs": ["ఏమీ అక్కర్లేదు, మీ చేతులు చాలు"],
+        "needs": [
+          "ఏమీ అక్కర్లేదు, మీ చేతులు చాలు"
+        ],
         "steps": [
           "బిడ్డను మీ ఒడిలో మీ వైపు తిప్పి కూర్చోబెట్టండి.",
           "నెమ్మదిగా పాడండి: చప్పట్లు చప్పట్లు, చిట్టి చేతులు. నాలాగే కొట్టు చప్పట్లు.",
@@ -147,129 +259,257 @@
           "పాడండి: టాటా టాటా, బై బై. నాలాగే చెయ్యి ఊపు. తర్వాత చెయ్యి ఊపండి.",
           "ప్రతిసారీ అవే కదలికలు చేయండి. త్వరలో బిడ్డ మిమ్మల్ని చూసి చేస్తుంది."
         ],
-        "safety": ["బిడ్డ చేతులను మృదువుగా పట్టుకోండి. చేతులు పట్టి లాగడం, ఊపడం ఎప్పుడూ చేయకండి."]
+        "safety": [
+          "బిడ్డ చేతులను మృదువుగా పట్టుకోండి. చేతులు పట్టుకుని బిడ్డను పైకి లాగడం, గాల్లో ఊపడం ఎప్పుడూ చేయకండి."
+        ]
       }
     },
     {
       "id": "ball-roll",
-      "skills": ["movement", "thinking", "social"],
-      "keywords": {"en": ["ball", "roll the ball"], "te": ["బంతి", "బంతి దొర్లించు"]},
-      "sources": ["cdc-9m"],
+      "skills": [
+        "movement",
+        "thinking",
+        "social"
+      ],
+      "keywords": {
+        "en": [
+          "ball",
+          "roll the ball"
+        ],
+        "te": [
+          "బంతి",
+          "బంతి దొర్లించు"
+        ]
+      },
+      "sources": [
+        "cdc-9m"
+      ],
       "en": {
         "title": "Roll the ball",
-        "needs": ["A soft ball, bigger than an orange"],
+        "needs": [
+          "A soft ball, bigger than an orange"
+        ],
         "steps": [
           "Sit on the floor. Sit the baby in front of you with a pillow behind for support.",
           "Roll the ball slowly to the baby and say: Here comes the ball!",
           "Help the baby push it back to you.",
           "Clap every time the ball moves."
         ],
-        "safety": ["Use a soft ball too big to go in the mouth. Keep a pillow behind a baby who still tips over."]
+        "safety": [
+          "Use a soft ball too big to go in the mouth. Keep a pillow behind a baby who still tips over."
+        ]
       },
       "te": {
         "title": "బంతి దొర్లించండి",
-        "needs": ["ఒక మెత్తటి బంతి, నారింజ పండు కంటే పెద్దది"],
+        "needs": [
+          "ఒక మెత్తటి బంతి, నారింజ పండు కంటే పెద్దది"
+        ],
         "steps": [
           "నేల మీద కూర్చోండి. బిడ్డ వెనక దిండు పెట్టి మీ ఎదురుగా కూర్చోబెట్టండి.",
           "బంతిని నెమ్మదిగా బిడ్డ వైపు దొర్లించి, బంతి వస్తోంది! అనండి.",
           "బిడ్డ బంతిని మీ వైపు తోసేలా సహాయం చేయండి.",
           "బంతి కదిలిన ప్రతిసారీ చప్పట్లు కొట్టండి."
         ],
-        "safety": ["నోట్లో పట్టనంత పెద్ద మెత్తటి బంతి వాడండి. ఇంకా ఒరిగిపోయే బిడ్డ వెనక దిండు ఉంచండి."]
+        "safety": [
+          "నోట్లో పట్టనంత పెద్ద మెత్తటి బంతి వాడండి. బిడ్డ ఇంకా సరిగ్గా కూర్చోలేకపోతే వెనక దిండు ఉంచండి."
+        ]
       }
     },
     {
       "id": "in-and-out",
-      "skills": ["hands", "thinking"],
-      "keywords": {"en": ["container", "in and out", "put in box", "blocks"], "te": ["డబ్బాలో వేయడం", "లోపల బయట", "బ్లాకులు"]},
-      "sources": ["cdc-9m", "seattle-toys", "stlouis-toys"],
+      "skills": [
+        "hands",
+        "thinking"
+      ],
+      "keywords": {
+        "en": [
+          "container",
+          "in and out",
+          "put in box",
+          "blocks"
+        ],
+        "te": [
+          "డబ్బాలో వేయడం",
+          "లోపల బయట",
+          "బ్లాకులు"
+        ]
+      },
+      "sources": [
+        "cdc-9m",
+        "seattle-toys",
+        "stlouis-toys"
+      ],
       "en": {
         "title": "In and out of the box",
-        "needs": ["A wide box, basket or big plastic bowl", "4 or 5 big blocks or soft toys"],
+        "needs": [
+          "A wide box, basket or big plastic bowl",
+          "4 or 5 big blocks or soft toys"
+        ],
         "steps": [
           "Put the toys in the box while the baby watches. Say: In!",
           "Tip the box over gently. Say: Out!",
           "Give the baby one toy and help the baby drop it in.",
           "Let the baby take them out again. Babies love doing this many times."
         ],
-        "safety": ["Every toy must be bigger than a toilet paper roll. No loose parts, beads or buttons."]
+        "safety": [
+          "Every toy must be bigger than an egg. No loose parts, beads or buttons."
+        ]
       },
       "te": {
         "title": "డబ్బాలో వేసి తీయండి",
-        "needs": ["వెడల్పాటి డబ్బా, బుట్ట లేదా పెద్ద ప్లాస్టిక్ గిన్నె", "4 లేదా 5 పెద్ద బ్లాకులు లేదా మెత్తటి బొమ్మలు"],
+        "needs": [
+          "వెడల్పాటి డబ్బా, బుట్ట లేదా పెద్ద ప్లాస్టిక్ గిన్నె",
+          "4 లేదా 5 పెద్ద బ్లాకులు లేదా మెత్తటి బొమ్మలు"
+        ],
         "steps": [
           "బిడ్డ చూస్తుండగా బొమ్మలను డబ్బాలో వేయండి. లోపల! అనండి.",
           "డబ్బాను మెల్లగా బోర్లించండి. బయట! అనండి.",
           "బిడ్డకు ఒక బొమ్మ ఇచ్చి, డబ్బాలో వేసేలా సహాయం చేయండి.",
           "మళ్ళీ బిడ్డే బయటికి తీయనివ్వండి. బిడ్డలకు ఇది ఎన్నిసార్లైనా ఇష్టమే."
         ],
-        "safety": ["ప్రతి బొమ్మ టాయిలెట్ పేపర్ గొట్టం కంటే పెద్దదిగా ఉండాలి. ఊడిపోయే భాగాలు, పూసలు, గుండీలు ఉండకూడదు."]
+        "safety": [
+          "ప్రతి బొమ్మ కోడిగుడ్డు కంటే పెద్దదిగా ఉండాలి. ఊడిపోయే భాగాలు, పూసలు, గుండీలు ఉండకూడదు."
+        ]
       }
     },
     {
       "id": "bang-the-bowl",
-      "skills": ["hands", "thinking", "listening"],
-      "keywords": {"en": ["drum", "music", "bang", "steel bowl", "make noise"], "te": ["డప్పు", "గిన్నె కొట్టడం", "శబ్దం", "సంగీతం"]},
-      "sources": ["seattle-toys"],
+      "skills": [
+        "hands",
+        "thinking",
+        "listening"
+      ],
+      "keywords": {
+        "en": [
+          "drum",
+          "music",
+          "bang",
+          "steel bowl",
+          "make noise"
+        ],
+        "te": [
+          "డప్పు",
+          "గిన్నె కొట్టడం",
+          "శబ్దం",
+          "సంగీతం"
+        ]
+      },
+      "sources": [
+        "seattle-toys"
+      ],
       "en": {
         "title": "Kitchen drum",
-        "needs": ["A steel bowl or pot turned upside down", "A wooden or big plastic spoon"],
+        "needs": [
+          "A steel bowl or pot turned upside down",
+          "A wooden or big plastic spoon"
+        ],
         "steps": [
           "Sit the baby on the floor with the bowl in front.",
           "Tap the bowl with the spoon: tap, tap, tap.",
           "Give the spoon to the baby and let the baby bang.",
           "Tap softly, then loudly, then softly again. Sing along to the beat."
         ],
-        "safety": ["Use a cool, clean pot with no sharp edges. Keep it away from the stove."]
+        "safety": [
+          "Use a cool, clean pot with no sharp edges. Keep it away from the stove."
+        ]
       },
       "te": {
         "title": "వంటింటి డప్పు",
-        "needs": ["బోర్లించిన స్టీలు గిన్నె లేదా గిన్నె", "చెక్క గరిటె లేదా పెద్ద ప్లాస్టిక్ గరిటె"],
+        "needs": [
+          "బోర్లించిన స్టీలు గిన్నె లేదా పాత్ర",
+          "చెక్క గరిటె లేదా పెద్ద ప్లాస్టిక్ గరిటె"
+        ],
         "steps": [
           "బిడ్డను నేల మీద కూర్చోబెట్టి, ఎదురుగా గిన్నె పెట్టండి.",
           "గరిటెతో గిన్నె మీద టక్ టక్ టక్ అని కొట్టండి.",
           "గరిటె బిడ్డకు ఇచ్చి, బిడ్డనే కొట్టనివ్వండి.",
           "మెల్లగా, తర్వాత గట్టిగా, మళ్ళీ మెల్లగా కొట్టండి. దానికి తగ్గట్టు పాడండి."
         ],
-        "safety": ["చల్లగా, శుభ్రంగా, పదునైన అంచు లేని గిన్నె వాడండి. పొయ్యికి దూరంగా ఉంచండి."]
+        "safety": [
+          "వేడి లేని, శుభ్రమైన, పదునైన అంచు లేని గిన్నె వాడండి. పొయ్యికి దూరంగా ఉంచండి."
+        ]
       }
     },
     {
       "id": "pass-hand-to-hand",
-      "skills": ["hands"],
-      "keywords": {"en": ["hold toy", "grab", "pass the toy"], "te": ["బొమ్మ పట్టుకోవడం", "చేతులు మార్చడం"]},
-      "sources": ["cdc-9m", "seattle-toys"],
+      "skills": [
+        "hands"
+      ],
+      "keywords": {
+        "en": [
+          "hold toy",
+          "grab",
+          "pass the toy"
+        ],
+        "te": [
+          "బొమ్మ పట్టుకోవడం",
+          "చేతులు మార్చడం"
+        ]
+      },
+      "sources": [
+        "cdc-9m",
+        "seattle-toys"
+      ],
       "en": {
         "title": "Pass the toy",
-        "needs": ["Two easy-to-hold toys, like a rattle and a soft block"],
+        "needs": [
+          "Two easy-to-hold toys, like a rattle and a soft block"
+        ],
         "steps": [
           "Give the baby one toy in one hand.",
           "Hold the second toy out to the same hand.",
           "The baby will learn to move the first toy to the other hand to take the new one.",
           "Name each toy as you give it: rattle, block."
         ],
-        "safety": ["Check the rattle is not cracked and has no small parts that can come off."]
+        "safety": [
+          "Check the rattle is not cracked and has no small parts that can come off."
+        ]
       },
       "te": {
         "title": "బొమ్మ మార్చి పట్టుకోవడం",
-        "needs": ["సులువుగా పట్టుకునే రెండు బొమ్మలు, గిలక్కాయ, మెత్తటి బ్లాకు లాంటివి"],
+        "needs": [
+          "సులువుగా పట్టుకునే రెండు బొమ్మలు, గిలక్కాయ, మెత్తటి బ్లాకు లాంటివి"
+        ],
         "steps": [
           "బిడ్డ ఒక చేతికి ఒక బొమ్మ ఇవ్వండి.",
           "రెండో బొమ్మను అదే చేతి వైపు చూపించండి.",
           "కొత్త బొమ్మ కోసం బిడ్డ మొదటి బొమ్మను ఇంకో చేతికి మార్చుకోవడం నేర్చుకుంటుంది.",
           "ఇస్తున్నప్పుడు బొమ్మ పేరు చెప్పండి: గిలక్కాయ, బ్లాకు."
         ],
-        "safety": ["గిలక్కాయ పగలలేదని, ఊడిపోయే చిన్న భాగాలు లేవని చూసుకోండి."]
+        "safety": [
+          "గిలక్కాయ పగిలిపోలేదని, ఊడిపోయే చిన్న భాగాలు లేవని చూసుకోండి."
+        ]
       }
     },
     {
       "id": "reach-and-crawl",
-      "skills": ["movement"],
-      "keywords": {"en": ["crawl", "crawling", "reach", "tummy time", "floor play"], "te": ["పాకడం", "బోర్లా", "నేల మీద ఆట"]},
-      "sources": ["cdc-9m", "aap-tummy"],
+      "skills": [
+        "movement"
+      ],
+      "keywords": {
+        "en": [
+          "crawl",
+          "crawling",
+          "reach",
+          "tummy time",
+          "floor play"
+        ],
+        "te": [
+          "పాకడం",
+          "బోర్లా",
+          "నేల మీద ఆట"
+        ]
+      },
+      "sources": [
+        "cdc-9m",
+        "aap-tummy"
+      ],
       "en": {
         "title": "Reach and crawl",
-        "needs": ["A mat or sheet on the floor", "A favourite toy"],
+        "needs": [
+          "A mat or sheet on the floor",
+          "A favourite toy"
+        ],
         "steps": [
           "Lay the baby on the tummy on the mat.",
           "Lie down in front of the baby so your faces are close.",
@@ -277,11 +517,17 @@
           "Let the baby stretch, scoot or crawl to it. Cheer when the baby gets it.",
           "A few minutes at a time is enough. Do it a few times a day."
         ],
-        "safety": ["Tummy play is only for when the baby is awake and you are watching. For sleep, always lay the baby on the back.", "Clear the floor of small things first, and block stairs."]
+        "safety": [
+          "Tummy play is only for when the baby is awake and you are watching. For sleep, always lay the baby on the back.",
+          "Clear the floor of small things first, and block stairs."
+        ]
       },
       "te": {
-        "title": "అందుకో, పాకు",
-        "needs": ["నేల మీద చాప లేదా దుప్పటి", "బిడ్డకు ఇష్టమైన బొమ్మ"],
+        "title": "బొమ్మ అందుకో, పాకు",
+        "needs": [
+          "నేల మీద చాప లేదా దుప్పటి",
+          "బిడ్డకు ఇష్టమైన బొమ్మ"
+        ],
         "steps": [
           "బిడ్డను చాప మీద బోర్లా పడుకోబెట్టండి.",
           "మీ ముఖం దగ్గరగా ఉండేలా బిడ్డ ఎదురుగా పడుకోండి.",
@@ -289,191 +535,392 @@
           "బిడ్డ చేయి చాపి, జరిగి లేదా పాకి బొమ్మ అందుకోనివ్వండి. అందుకోగానే చప్పట్లు కొట్టండి.",
           "ఒక్కోసారి కొన్ని నిమిషాలు చాలు. రోజుకు కొన్ని సార్లు చేయండి."
         ],
-        "safety": ["బోర్లా ఆట బిడ్డ మేల్కొని ఉండి, మీరు చూస్తున్నప్పుడు మాత్రమే. నిద్రకు ఎప్పుడూ వెల్లకిలా పడుకోబెట్టండి.", "ముందు నేల మీద చిన్న వస్తువులు తీసేయండి. మెట్ల దగ్గరికి వెళ్ళకుండా అడ్డు పెట్టండి."]
+        "safety": [
+          "బిడ్డ మేల్కొని ఉండి, మీరు చూస్తున్నప్పుడు మాత్రమే బోర్లా ఆడించండి. నిద్రకు ఎప్పుడూ వెల్లకిలా పడుకోబెట్టండి.",
+          "ముందు నేల మీద చిన్న వస్తువులు తీసేయండి. మెట్ల దగ్గరికి వెళ్ళకుండా అడ్డు పెట్టండి."
+        ]
       }
     },
     {
       "id": "mirror-faces",
-      "skills": ["social", "talking"],
-      "keywords": {"en": ["mirror", "faces", "look in mirror"], "te": ["అద్దం", "ముఖాలు"]},
-      "sources": ["kidshealth-learn"],
+      "skills": [
+        "social",
+        "talking"
+      ],
+      "keywords": {
+        "en": [
+          "mirror",
+          "faces",
+          "look in mirror"
+        ],
+        "te": [
+          "అద్దం",
+          "ముఖాలు"
+        ]
+      },
+      "sources": [
+        "kidshealth-learn"
+      ],
       "en": {
         "title": "Mirror faces",
-        "needs": ["A wall mirror or a big unbreakable mirror"],
+        "needs": [
+          "A wall mirror or a big unbreakable mirror"
+        ],
         "steps": [
           "Hold the baby in front of the mirror.",
           "Point and say: Who is that? That is baby! That is grandma!",
           "Make happy faces, surprised faces and silly faces.",
           "Touch the baby's nose and say: Nose! Then touch your own nose."
         ],
-        "safety": ["Use a fixed wall mirror or an unbreakable baby mirror. Never give a glass hand mirror to the baby."]
+        "safety": [
+          "Use a fixed wall mirror or an unbreakable baby mirror. Never give a glass hand mirror to the baby."
+        ]
       },
       "te": {
         "title": "అద్దంలో ముఖాలు",
-        "needs": ["గోడ అద్దం లేదా పగలని పెద్ద అద్దం"],
+        "needs": [
+          "గోడ అద్దం లేదా పగలని పెద్ద అద్దం"
+        ],
         "steps": [
           "బిడ్డను అద్దం ముందు పట్టుకోండి.",
-          "చూపిస్తూ అడగండి: ఎవరు వాళ్ళు? మన బుజ్జాయి! ఇదిగో అమ్మమ్మ!",
+          "చూపిస్తూ అడగండి: అద్దంలో ఎవరు? మన బుజ్జాయి! ఇదిగో అమ్మమ్మ!",
           "సంతోషంగా, ఆశ్చర్యంగా, సరదాగా ముఖాలు పెట్టండి.",
           "బిడ్డ ముక్కు తాకి, ముక్కు! అనండి. తర్వాత మీ ముక్కు తాకండి."
         ],
-        "safety": ["గోడకు బిగించిన అద్దం లేదా పగలని బేబీ అద్దం వాడండి. గాజు చేతి అద్దం బిడ్డకు ఎప్పుడూ ఇవ్వకండి."]
+        "safety": [
+          "గోడకు బిగించిన అద్దం లేదా పగలని బేబీ అద్దం వాడండి. గాజు చేతి అద్దం బిడ్డకు ఎప్పుడూ ఇవ్వకండి."
+        ]
       }
     },
     {
       "id": "picture-book",
-      "skills": ["talking", "listening"],
-      "keywords": {"en": ["book", "read", "picture book", "pictures"], "te": ["పుస్తకం", "చదవడం", "బొమ్మల పుస్తకం"]},
-      "sources": ["cdc-9m", "stlouis-toys"],
+      "skills": [
+        "talking",
+        "listening"
+      ],
+      "keywords": {
+        "en": [
+          "book",
+          "read",
+          "picture book",
+          "pictures"
+        ],
+        "te": [
+          "పుస్తకం",
+          "చదవడం",
+          "బొమ్మల పుస్తకం"
+        ]
+      },
+      "sources": [
+        "cdc-9m",
+        "stlouis-toys"
+      ],
       "en": {
         "title": "Look at a picture book",
-        "needs": ["A thick cardboard or cloth picture book, or a printed picture from this app"],
+        "needs": [
+          "A thick cardboard or cloth picture book, or a printed picture from this app"
+        ],
         "steps": [
           "Sit the baby on your lap with the book in front.",
           "Point to one picture and name it slowly: Cow. The cow says moo.",
           "Let the baby touch, pat and turn the thick pages.",
           "You do not need to read every word. Short and happy is best."
         ],
-        "safety": ["It is normal for the baby to chew the book. Use thick board books, not paper with staples."]
+        "safety": [
+          "It is normal for the baby to chew the book. Use thick board books, not paper with staples."
+        ]
       },
       "te": {
         "title": "బొమ్మల పుస్తకం చూపించండి",
-        "needs": ["మందపాటి అట్ట లేదా గుడ్డ బొమ్మల పుస్తకం, లేదా ఈ యాప్ నుండి ప్రింట్ చేసిన బొమ్మ"],
+        "needs": [
+          "మందపాటి అట్ట లేదా గుడ్డ బొమ్మల పుస్తకం, లేదా ఈ యాప్ నుండి ప్రింట్ చేసిన బొమ్మ"
+        ],
         "steps": [
           "బిడ్డను ఒడిలో కూర్చోబెట్టి, ఎదురుగా పుస్తకం పెట్టండి.",
           "ఒక బొమ్మ చూపించి నెమ్మదిగా పేరు చెప్పండి: ఆవు. ఆవు అంబా అంటుంది.",
           "బిడ్డను తాకనివ్వండి, తట్టనివ్వండి, మందపాటి పేజీలు తిప్పనివ్వండి.",
           "ప్రతి మాట చదవక్కర్లేదు. కొద్దిసేపు, సంతోషంగా చూపిస్తే చాలు."
         ],
-        "safety": ["బిడ్డ పుస్తకం నోట్లో పెట్టుకోవడం మామూలే. పిన్నులు ఉన్న కాగితాలు కాకుండా మందపాటి అట్ట పుస్తకాలు వాడండి."]
+        "safety": [
+          "బిడ్డ పుస్తకం నోట్లో పెట్టుకోవడం మామూలే. పిన్నులు ఉన్న కాగితాలు కాకుండా మందపాటి అట్ట పుస్తకాలు వాడండి."
+        ]
       }
     },
     {
       "id": "bubbles",
-      "skills": ["looking", "hands"],
-      "keywords": {"en": ["bubbles", "blow bubbles"], "te": ["బుడగలు", "సబ్బు బుడగలు"]},
-      "sources": ["bubbles-gelds", "bubbles-ccc"],
+      "skills": [
+        "looking",
+        "hands"
+      ],
+      "keywords": {
+        "en": [
+          "bubbles",
+          "blow bubbles"
+        ],
+        "te": [
+          "బుడగలు",
+          "సబ్బు బుడగలు"
+        ]
+      },
+      "sources": [
+        "bubbles-gelds",
+        "bubbles-ccc"
+      ],
       "en": {
         "title": "Watch the bubbles",
-        "needs": ["A small bottle of bubble liquid with a wand"],
+        "needs": [
+          "A small bottle of bubble liquid with a wand"
+        ],
         "steps": [
           "Sit the baby safely on the floor or in a high chair.",
           "Blow a few bubbles slowly above the baby.",
           "Say: Look! Up, up, up! Pop!",
           "Let the baby reach for them. Pop one on the baby's hand or toes."
         ],
-        "safety": ["Only you hold the bottle and blow. Keep the liquid away from the baby's mouth and eyes.", "Bubbles make floors slippery. Wipe the floor after."]
+        "safety": [
+          "Only you hold the bottle and blow. Keep the liquid away from the baby's mouth and eyes.",
+          "Bubbles make floors slippery. Wipe the floor after."
+        ]
       },
       "te": {
         "title": "బుడగలు చూపించండి",
-        "needs": ["ఊదే పుల్లతో ఒక చిన్న బుడగల సీసా"],
+        "needs": [
+          "ఊదే పుల్లతో ఒక చిన్న బుడగల సీసా"
+        ],
         "steps": [
           "బిడ్డను నేల మీద లేదా హై చెయిర్‌లో సురక్షితంగా కూర్చోబెట్టండి.",
           "బిడ్డ పైన నెమ్మదిగా కొన్ని బుడగలు ఊదండి.",
-          "చూడు! పైకి, పైకి, పైకి! ఢాం! అనండి.",
+          "చూడు! పైకి, పైకి, పైకి! టప్! అనండి.",
           "బిడ్డ చేయి చాపి అందుకోనివ్వండి. ఒక బుడగ బిడ్డ చేతి మీద లేదా కాలి మీద పగలనివ్వండి."
         ],
-        "safety": ["సీసా మీరే పట్టుకుని మీరే ఊదండి. ఆ ద్రవం బిడ్డ నోటికి, కళ్ళకు తగలకుండా చూడండి.", "బుడగల వల్ల నేల జారుతుంది. తర్వాత నేల తుడవండి."]
+        "safety": [
+          "సీసా మీరే పట్టుకుని మీరే ఊదండి. బుడగల నీళ్ళు బిడ్డ నోటికి, కళ్ళకు తగలకుండా చూడండి.",
+          "బుడగల వల్ల నేల జారుతుంది. తర్వాత నేల తుడవండి."
+        ]
       }
     },
     {
       "id": "water-splash",
-      "skills": ["senses", "hands"],
-      "keywords": {"en": ["water play", "splash", "water"], "te": ["నీళ్ళ ఆట", "నీళ్ళలో ఆడటం"]},
-      "sources": ["norfolk-nhs-play", "kentucky-infant"],
+      "skills": [
+        "senses",
+        "hands"
+      ],
+      "keywords": {
+        "en": [
+          "water play",
+          "splash",
+          "water"
+        ],
+        "te": [
+          "నీళ్ళ ఆట",
+          "నీళ్ళలో ఆడటం"
+        ]
+      },
+      "sources": [
+        "norfolk-nhs-play",
+        "kentucky-infant"
+      ],
       "en": {
         "title": "Splash in a bowl",
-        "needs": ["A wide bowl with a little room-temperature water", "Two plastic cups or a small strainer", "A towel under everything"],
+        "needs": [
+          "A wide bowl with a little room-temperature water",
+          "Two plastic cups or a small strainer",
+          "A towel under everything"
+        ],
         "steps": [
           "Put the towel on the floor and the bowl on top. Pour in water only a finger deep.",
           "Sit right next to the baby.",
           "Pour water from one cup to the other and say: Splash! Drip, drip.",
           "Let the baby pat the water and hold the cup."
         ],
-        "safety": ["A baby can drown in very little water. Stay touching distance the whole time. If you must leave, take the baby with you.", "Pour the water out as soon as play ends."]
+        "safety": [
+          "A baby can drown in very little water. Stay touching distance the whole time. If you must leave, take the baby with you.",
+          "Pour the water out as soon as play ends."
+        ]
       },
       "te": {
         "title": "గిన్నెలో నీళ్ళ ఆట",
-        "needs": ["కొద్దిగా మామూలు నీళ్ళు (వేడివి కాదు) పోసిన వెడల్పాటి గిన్నె", "రెండు ప్లాస్టిక్ కప్పులు లేదా చిన్న జల్లెడ", "అన్నిటి కింద ఒక తువ్వాలు"],
+        "needs": [
+          "కొద్దిగా మామూలు నీళ్ళు (వేడివి కాదు) పోసిన వెడల్పాటి గిన్నె",
+          "రెండు ప్లాస్టిక్ కప్పులు లేదా చిన్న జల్లెడ",
+          "అన్నిటి కింద ఒక తువ్వాలు"
+        ],
         "steps": [
           "నేల మీద తువ్వాలు పరిచి, దాని మీద గిన్నె పెట్టండి. ఒక వేలు లోతు నీళ్ళు మాత్రమే పోయండి.",
           "బిడ్డ పక్కనే కూర్చోండి.",
           "ఒక కప్పు నుండి ఇంకో కప్పులోకి నీళ్ళు పోస్తూ, చప్ చప్! టప్ టప్! అనండి.",
           "బిడ్డను నీళ్ళు తట్టనివ్వండి, కప్పు పట్టుకోనివ్వండి."
         ],
-        "safety": ["చాలా కొద్ది నీళ్ళలో కూడా బిడ్డ మునిగిపోవచ్చు. ఆట అయ్యేవరకు తాకేంత దగ్గరలో ఉండండి. మీరు వెళ్ళాల్సి వస్తే బిడ్డను కూడా తీసుకెళ్ళండి.", "ఆట అయిపోగానే నీళ్ళు పారబోయండి."]
+        "safety": [
+          "చాలా కొద్ది నీళ్ళలో కూడా బిడ్డ మునిగిపోవచ్చు. ఆట అయ్యేవరకు తాకేంత దగ్గరలో ఉండండి. మీరు వెళ్ళాల్సి వస్తే బిడ్డను కూడా తీసుకెళ్ళండి.",
+          "ఆట అయిపోగానే నీళ్ళు పారబోయండి."
+        ]
       }
     },
     {
       "id": "touch-basket",
-      "skills": ["senses", "hands"],
-      "keywords": {"en": ["touch", "feel", "textures", "sensory", "treasure basket"], "te": ["తాకడం", "స్పర్శ", "బుట్ట ఆట"]},
-      "sources": ["sanford-toys", "stlouis-toys", "elft-play"],
+      "skills": [
+        "senses",
+        "hands"
+      ],
+      "keywords": {
+        "en": [
+          "touch",
+          "feel",
+          "textures",
+          "sensory",
+          "treasure basket"
+        ],
+        "te": [
+          "తాకడం",
+          "స్పర్శ",
+          "బుట్ట ఆట"
+        ]
+      },
+      "sources": [
+        "sanford-toys",
+        "stlouis-toys",
+        "elft-play"
+      ],
       "en": {
         "title": "Touch and feel basket",
-        "needs": ["A basket with 4 or 5 safe household things: a big wooden spoon, a soft cloth, a steel tumbler, a clean sponge, a small towel"],
+        "needs": [
+          "A basket with 4 or 5 safe household things: a big wooden spoon, a soft cloth, a steel tumbler, a clean sponge, a small towel"
+        ],
         "steps": [
           "Sit with the baby and put the basket in front.",
           "Let the baby take things out one by one.",
           "Name each one and how it feels: soft cloth, cold tumbler, rough sponge.",
           "Swap in different things on another day to keep it new."
         ],
-        "safety": ["Check every item with the toilet paper roll test. If it fits inside, it is too small.", "No glass, nothing sharp, nothing with strings, and no food the baby could choke on."]
+        "safety": [
+          "Check every item: if it fits inside an empty toilet paper roll, it is too small. With no roll, nothing smaller than an egg.",
+          "No glass, nothing sharp, nothing with strings, and no food the baby could choke on."
+        ]
       },
       "te": {
         "title": "తాకి చూసే బుట్ట",
-        "needs": ["4 లేదా 5 సురక్షితమైన ఇంటి వస్తువులతో ఒక బుట్ట: పెద్ద చెక్క గరిటె, మెత్తటి గుడ్డ, స్టీలు గ్లాసు, శుభ్రమైన స్పాంజి, చిన్న తువ్వాలు"],
+        "needs": [
+          "4 లేదా 5 సురక్షితమైన ఇంటి వస్తువులతో ఒక బుట్ట: పెద్ద చెక్క గరిటె, మెత్తటి గుడ్డ, స్టీలు గ్లాసు, శుభ్రమైన స్పాంజి, చిన్న తువ్వాలు"
+        ],
         "steps": [
           "బిడ్డతో కూర్చుని, ఎదురుగా బుట్ట పెట్టండి.",
           "బిడ్డ ఒక్కొక్కటిగా బయటికి తీయనివ్వండి.",
           "ఒక్కోదాని పేరు, అది ఎలా ఉందో చెప్పండి: మెత్తటి గుడ్డ, చల్లటి గ్లాసు, గరుకు స్పాంజి.",
           "కొత్తగా ఉండటానికి వేరే రోజు వేరే వస్తువులు పెట్టండి."
         ],
-        "safety": ["ప్రతి వస్తువును టాయిలెట్ పేపర్ గొట్టంలో పెట్టి చూడండి. లోపలికి పడితే అది చాలా చిన్నది.", "గాజు, పదునైనవి, దారాలు ఉన్నవి, గొంతులో ఇరుక్కునే తినే పదార్థాలు వద్దు."]
+        "safety": [
+          "ప్రతి వస్తువును టాయిలెట్ పేపర్ గొట్టంలో పెట్టి చూడండి. లోపలికి పడితే అది చాలా చిన్నది. గొట్టం లేకపోతే, కోడిగుడ్డు కంటే చిన్నది ఏదీ వద్దు.",
+          "గాజు, పదునైనవి, దారాలు ఉన్నవి, గొంతులో ఇరుక్కునే తినే పదార్థాలు వద్దు."
+        ]
       }
     },
     {
       "id": "point-and-name-walk",
-      "skills": ["talking", "looking"],
-      "keywords": {"en": ["walk", "outside", "show things", "window"], "te": ["బయటికి", "కిటికీ", "చూపించడం", "నడక"]},
-      "sources": ["cdc-9m", "kidshealth-learn"],
+      "skills": [
+        "talking",
+        "looking"
+      ],
+      "keywords": {
+        "en": [
+          "walk",
+          "outside",
+          "show things",
+          "window"
+        ],
+        "te": [
+          "బయటికి",
+          "కిటికీ",
+          "చూపించడం",
+          "నడక"
+        ]
+      },
+      "sources": [
+        "cdc-9m",
+        "kidshealth-learn"
+      ],
       "en": {
         "title": "Point and name walk",
-        "needs": ["Nothing, just carry the baby"],
+        "needs": [
+          "Nothing, just carry the baby"
+        ],
         "steps": [
           "Carry the baby around the house, to the window or the garden.",
           "Stop at one thing at a time: fan, light, flower, bird, cow.",
           "Point and say the name slowly two times.",
           "Wait for the baby to look. Smile when the baby looks where you point."
         ],
-        "safety": ["Keep the baby away from hot stoves, open windows and balconies.", "Outside, keep the baby in shade and away from animals you do not know."]
+        "safety": [
+          "Keep the baby away from hot stoves, open windows and balconies.",
+          "Outside, keep the baby in shade and away from animals you do not know."
+        ]
       },
       "te": {
         "title": "చూపిస్తూ పేర్లు చెప్పండి",
-        "needs": ["ఏమీ అక్కర్లేదు, బిడ్డను ఎత్తుకుంటే చాలు"],
+        "needs": [
+          "ఏమీ అక్కర్లేదు, బిడ్డను ఎత్తుకుంటే చాలు"
+        ],
         "steps": [
-          "బిడ్డను ఎత్తుకుని ఇంట్లో, కిటికీ దగ్గర లేదా తోటలో తిప్పండి.",
+          "బిడ్డను ఎత్తుకుని ఇంట్లో, కిటికీ దగ్గర లేదా తోటలో తిప్పుతూ చూపించండి.",
           "ఒక్కోసారి ఒక్కదాని దగ్గర ఆగండి: ఫ్యాను, లైటు, పువ్వు, పిట్ట, ఆవు.",
           "చూపిస్తూ పేరు నెమ్మదిగా రెండుసార్లు చెప్పండి.",
           "బిడ్డ చూసేవరకు ఆగండి. మీరు చూపించిన చోట బిడ్డ చూస్తే నవ్వండి."
         ],
-        "safety": ["వేడి పొయ్యి, తెరిచిన కిటికీలు, బాల్కనీలకు బిడ్డను దూరంగా ఉంచండి.", "బయట నీడలో ఉండండి. తెలియని జంతువులకు దూరంగా ఉండండి."]
+        "safety": [
+          "వేడి పొయ్యి, తెరిచిన కిటికీలు, బాల్కనీలకు బిడ్డను దూరంగా ఉంచండి.",
+          "బయట నీడలో ఉండండి. తెలియని జంతువులకు దూరంగా ఉండండి."
+        ]
       }
     }
   ],
-
   "sources": {
-    "cdc-9m": {"name": "CDC, Milestones by 9 months (activities to help your baby)", "url": "https://www.cdc.gov/act-early/milestones/9-months.html"},
-    "aap-tummy": {"name": "AAP 'Back to sleep, tummy to play' guidance, as summarised by Sharp HealthCare", "url": "https://www.sharp.com/health-news/its-tummy-time-building-babys-strength"},
-    "kidshealth-learn": {"name": "KidsHealth (Nemours), Learning, Play and Your 8- to 12-Month-Old", "url": "https://kidshealth.org/MedStarHealth/en/parents/learn812m.html"},
-    "seattle-toys": {"name": "Seattle Children's, Toys and play: birth to 12 months", "url": "https://www.seattlechildrens.org/health-safety/keeping-kids-healthy/development/toys-and-play-birth-to-12-months/"},
-    "stlouis-toys": {"name": "St. Louis Children's Hospital, Age-appropriate toys", "url": "https://www.stlouischildrens.org/sites/legacy/files/pdfs/SLC10659_AgeAppropriateToysBrochureR3.pdf"},
-    "sanford-toys": {"name": "Sanford Health, Create safe and simple household baby toys (toilet paper roll test)", "url": "https://news.sanfordhealth.org/childrens/create-safe-and-simple-household-baby-toys/"},
-    "elft-play": {"name": "East London NHS Foundation Trust, Toy and play 6 to 9 months", "url": "https://elft.nhs.uk/sites/default/files/2024-09/EiSmart%20Toy%20and%20Play%206-9%20months.pdf"},
-    "norfolk-nhs-play": {"name": "Just One Norfolk (NHS), 6 to 12 months play tips", "url": "https://www.JustOneNorfolk.nhs.uk/media/1cmphw5z/6-12-months-play-tips-talk-and-play.pdf"},
-    "kentucky-infant": {"name": "Kentucky Division of Child Care, infant lessons (supervised water play)", "url": "https://www.chfs.ky.gov/agencies/dcbs/dcc/Documents/updatedinfantlessons.pdf"},
-    "bubbles-gelds": {"name": "Georgia Early Learning (GELDS), Bubble play", "url": "https://gelds.decal.ga.gov/Activity/Detail/394"},
-    "bubbles-ccc": {"name": "Complete Childcare, Babbling babies: bubbles 0 to 18 months", "url": "https://www.completechildcare.co.uk/userfiles/files/Babbling%20babies%20-%20bubbles%20_%200%20to%2018%20months.pdf"},
-    "screens-note": {"name": "AAP media guidance: avoid screen use under 18 months other than video chatting (general AAP position, not fetched for this file)", "url": "https://www.healthychildren.org/English/family-life/Media/Pages/Healthy-Digital-Media-Use-Habits-for-Babies-Toddlers-Preschoolers.aspx"}
+    "cdc-9m": {
+      "name": "CDC, Milestones by 9 months (activities to help your baby)",
+      "url": "https://www.cdc.gov/act-early/milestones/9-months.html"
+    },
+    "aap-tummy": {
+      "name": "AAP 'Back to sleep, tummy to play' guidance, as summarised by Sharp HealthCare",
+      "url": "https://www.sharp.com/health-news/its-tummy-time-building-babys-strength"
+    },
+    "kidshealth-learn": {
+      "name": "KidsHealth (Nemours), Learning, Play and Your 8- to 12-Month-Old",
+      "url": "https://kidshealth.org/MedStarHealth/en/parents/learn812m.html"
+    },
+    "seattle-toys": {
+      "name": "Seattle Children's, Toys and play: birth to 12 months",
+      "url": "https://www.seattlechildrens.org/health-safety/keeping-kids-healthy/development/toys-and-play-birth-to-12-months/"
+    },
+    "stlouis-toys": {
+      "name": "St. Louis Children's Hospital, Age-appropriate toys",
+      "url": "https://www.stlouischildrens.org/sites/legacy/files/pdfs/SLC10659_AgeAppropriateToysBrochureR3.pdf"
+    },
+    "sanford-toys": {
+      "name": "Sanford Health, Create safe and simple household baby toys (toilet paper roll test)",
+      "url": "https://news.sanfordhealth.org/childrens/create-safe-and-simple-household-baby-toys/"
+    },
+    "elft-play": {
+      "name": "East London NHS Foundation Trust, Toy and play 6 to 9 months",
+      "url": "https://elft.nhs.uk/sites/default/files/2024-09/EiSmart%20Toy%20and%20Play%206-9%20months.pdf"
+    },
+    "norfolk-nhs-play": {
+      "name": "Just One Norfolk (NHS), 6 to 12 months play tips",
+      "url": "https://www.JustOneNorfolk.nhs.uk/media/1cmphw5z/6-12-months-play-tips-talk-and-play.pdf"
+    },
+    "kentucky-infant": {
+      "name": "Kentucky Division of Child Care, infant lessons (supervised water play)",
+      "url": "https://www.chfs.ky.gov/agencies/dcbs/dcc/Documents/updatedinfantlessons.pdf"
+    },
+    "bubbles-gelds": {
+      "name": "Georgia Early Learning (GELDS), Bubble play",
+      "url": "https://gelds.decal.ga.gov/Activity/Detail/394"
+    },
+    "bubbles-ccc": {
+      "name": "Complete Childcare, Babbling babies: bubbles 0 to 18 months",
+      "url": "https://www.completechildcare.co.uk/userfiles/files/Babbling%20babies%20-%20bubbles%20_%200%20to%2018%20months.pdf"
+    },
+    "screens-note": {
+      "name": "AAP media guidance: avoid screen use under 18 months other than video chatting (general AAP position, not fetched for this file)",
+      "url": "https://www.healthychildren.org/English/family-life/Media/Pages/Healthy-Digital-Media-Use-Habits-for-Babies-Toddlers-Preschoolers.aspx"
+    }
   }
 }
