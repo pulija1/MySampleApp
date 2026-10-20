@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="te">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baby Helper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1 id="title">Baby Helper</h1>
+  <div class="langs">
+    <button id="lang-te" class="lang">తెలుగు</button>
+    <button id="lang-en" class="lang">English</button>
+  </div>
+</header>
+<main>
+  <p id="greeting" class="greeting"></p>
+  <button id="mic" class="mic" aria-label="Tap and speak">
+    <span class="mic-icon">🔊</span>
+    <span id="mic-label">Tap and speak</span>
+  </button>
+  <p id="heard" class="heard"></p>
+  <p id="voice-note" class="heard" hidden></p>
+  <div class="quick">
+    <button data-topic="song" class="q"><span>🎵</span><b id="q-song">Song</b></button>
+    <button data-topic="game" class="q"><span>🎲</span><b id="q-game">Game</b></button>
+    <button data-topic="story" class="q"><span>📖</span><b id="q-story">Story</b></button>
+    <button data-topic="picture" class="q"><span>🖍️</span><b id="q-picture">Picture</b></button>
+    <button data-topic="calm" class="q"><span>😢</span><b id="q-calm">Baby crying</b></button>
+    <button data-topic="sleep" class="q"><span>😴</span><b id="q-sleep">Sleep</b></button>
+  </div>
+  <section id="answer" class="answer" hidden>
+    <a id="sos" class="sos" href="tel:108" hidden>📞 <span id="sos-label">Call 108</span></a>
+    <p id="answer-reply" class="reply"></p>
+    <h2 id="answer-title"></h2>
+    <div id="answer-body"></div>
+    <div id="picture" class="picture"></div>
+    <div class="actions">
+      <button id="ask" class="act ask">🔊 <span id="ask-label">Ask again</span></button>
+      <button id="print" class="act print" hidden>🖨️ <span id="print-label">Print</span></button>
+      <button id="again" class="act">🔁 <span id="again-label">Say again</span></button>
+      <button id="next" class="act">➡️ <span id="next-label">Another one</span></button>
+      <button id="stop" class="act">⏹️ <span id="stop-label">Stop</span></button>
+    </div>
+  </section>
+  <form id="typed" class="typed">
+    <input id="typed-input" type="text" placeholder="Or type here">
+    <button type="submit" id="typed-go">Go</button>
+  </form>
+</main>
+<script src="content.js"></script>
+<script src="pictures.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

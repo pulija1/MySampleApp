@@ -1,0 +1,45 @@
+:root{--bg:#fff8ec;--fg:#2b2118;--accent:#e2572b;--soft:#ffe3c2;--card:#fff;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,"Noto Sans Telugu",sans-serif;font-size:22px;line-height:1.5}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:12px 16px;gap:8px}
+h1{margin:0;font-size:30px}
+.langs{display:flex;gap:8px}
+.lang{font-size:22px;padding:10px 16px;border-radius:14px;border:3px solid var(--accent);background:#fff;color:var(--fg)}
+.lang.on{background:var(--accent);color:#fff}
+main{max-width:640px;margin:0 auto;padding:0 16px 40px}
+.mic{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;min-height:220px;border:none;border-radius:32px;background:var(--accent);color:#fff;font-size:30px;font-weight:700;margin:8px 0;box-shadow:0 6px 0 #b03e18}
+.mic-icon{font-size:90px;line-height:1}
+.mic.listening{background:#2e8b3d;box-shadow:0 6px 0 #1d5c27;animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(.97)}}
+.heard{min-height:1.5em;text-align:center;font-style:italic;color:#6b5a4a}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.q{display:flex;flex-direction:column;align-items:center;padding:16px 8px;border-radius:20px;border:3px solid var(--soft);background:var(--card);font-size:24px;color:var(--fg)}
+.q span{font-size:48px}
+.answer{background:var(--card);border-radius:24px;padding:16px 20px;margin-top:20px;border:3px solid var(--soft)}
+.answer h2{margin:0 0 8px;font-size:28px}
+.answer li{margin-bottom:10px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.act{flex:1 1 140px;font-size:22px;padding:14px;border-radius:16px;border:none;background:var(--soft);color:var(--fg)}
+.picture svg{width:100%;height:auto;background:#fff;border:2px solid #ddd;border-radius:12px}
+.typed{display:flex;gap:8px;margin-top:24px}
+.typed input{flex:1;min-width:0;font-size:22px;padding:12px;border-radius:14px;border:2px solid #ccc}
+.typed button{font-size:22px;padding:12px 18px;border-radius:14px;border:none;background:var(--accent);color:#fff}
+@media print{
+  body{background:#fff}
+  header,.mic,.heard,.quick,.actions,.typed,#answer-body{display:none!important}
+  .answer{border:none;padding:0;margin:0}
+  .picture svg{border:none;max-height:90vh}
+}
+body{font-family:"Noto Sans Telugu",system-ui,sans-serif}
+html[lang=te] body{font-size:24px}
+.greeting{text-align:center;font-size:24px;margin:4px 0}
+.reply{font-weight:600;margin:0 0 6px}
+.sos{display:block;text-align:center;background:#c62828;color:#fff;font-size:30px;font-weight:700;padding:18px;border-radius:20px;text-decoration:none;margin-bottom:12px}
+.act.print{background:var(--accent);color:#fff;font-weight:700;flex-basis:100%}
+.tips{margin-top:8px}
+@media print{ .greeting,.sos,.reply,#answer-title{display:none!important} }
+[hidden]{display:none!important}
+button,input{font-family:inherit}
+.needs{color:#6b5a4a}
+.act.ask{background:var(--accent);color:#fff;font-size:28px;font-weight:700;padding:22px;flex-basis:100%;border-radius:24px}
+.act.ask{position:sticky;bottom:10px;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.25)}
