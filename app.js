@@ -2,13 +2,15 @@
 // reviewed data (telugu/te.json + telugu/te-intents.js); content.js is the fallback.
 const UI = {
   en: {title:"Baby Helper", mic:"Tap and speak", listening:"Listening… speak now", song:"Song", game:"Game", story:"Story", picture:"Picture", calm:"Baby crying", sleep:"Sleep",
-       again:"Say again", next:"Another one", stop:"Stop", ask:"Ask again", voice:"Change voice", print:"Print", sos:"Call 108", typed:"Or type here", go:"Go",
+       again:"Say again", next:"Another one", stop:"Stop", ask:"Ask again", voice:"Change voice",
+       dictate:"Tap the 🎤 on the keyboard below, speak, then tap Go.", dictateShort:"Tap the microphone on the keyboard and speak.", trySafari:"In Safari, the big speaker button can listen by itself.", print:"Print", sos:"Call 108", typed:"Or type here", go:"Go",
        noMic:"Voice is not available in this browser. Please tap a big button or type.", micPermission:"Please allow the microphone. Tap 'Allow' at the top.",
        heardNothing:"I did not hear you. Please tap and try again.", stopped:"OK, stopped. Tap the speaker when you need me.",
        greetings:{morning:"Good morning! A song, a game or a story?", afternoon:"Good afternoon! Shall I suggest an easy game?", evening:"Good evening! A song or a story for the little one?", night:"Good night. Shall I sing a lullaby?"},
        replies:{song:"Here is a song. Clap along!", lullaby:"Dim the light and rock gently. Here is a lullaby.", game:"Here is an easy game.", story:"Here is a short story.", picture:"Here is a picture. Tap Print to print it.", calm:"Don't worry. Try these:", sleep:"Try these to help the baby sleep:", food:"Try these at meal time:", emergency:"This is important. Call 108 now if the baby is in danger.", sick:"Please call the parents or a doctor. Meanwhile:", bath:"Here is how to make bath time safe and fun:", greeting:"Hello! I am here to help.", thanks:"Happy to help!", unknown:"Sorry, I did not understand. Say: song, game, story, picture, or baby is crying."}},
   te: {title:"చిన్నారి సహాయి", mic:"నొక్కి మాట్లాడండి", listening:"వింటున్నాను… చెప్పండి", song:"పాట", game:"ఆట", story:"కథ", picture:"బొమ్మ", calm:"బిడ్డ ఏడుపు", sleep:"నిద్ర",
-       again:"మళ్ళీ వినండి", next:"ఇంకొకటి", stop:"ఆపు", ask:"మళ్ళీ అడగండి", voice:"గొంతు మార్చు", print:"ప్రింట్ చేయండి", sos:"108 కి ఫోన్ చేయండి", typed:"లేదా ఇక్కడ టైప్ చేయండి", go:"చూపించు",
+       again:"మళ్ళీ వినండి", next:"ఇంకొకటి", stop:"ఆపు", ask:"మళ్ళీ అడగండి", voice:"గొంతు మార్చు",
+       dictate:"కింద కీబోర్డ్‌లో 🎤 నొక్కి మాట్లాడండి, తర్వాత 'చూపించు' నొక్కండి.", dictateShort:"కీబోర్డ్‌లో మైక్ నొక్కి మాట్లాడండి.", trySafari:"Safari లో అయితే పెద్ద స్పీకర్ బటన్ నేరుగా వింటుంది.", print:"ప్రింట్ చేయండి", sos:"108 కి ఫోన్ చేయండి", typed:"లేదా ఇక్కడ టైప్ చేయండి", go:"చూపించు",
        noMic:"ఈ బ్రౌజర్‌లో వాయిస్ పనిచేయదు. పెద్ద బటన్ నొక్కండి లేదా టైప్ చేయండి.", micPermission:"మైక్ వాడటానికి అనుమతి ఇవ్వండి. పైన 'Allow' నొక్కండి.",
        heardNothing:"క్షమించండి, నాకు వినిపించలేదు. మళ్ళీ నొక్కి చెప్పండి.", stopped:"సరే, ఆపేశాను. మళ్ళీ కావాలంటే మైక్ నొక్కండి.",
        noVoice:"ఈ ఫోన్‌లో తెలుగు గొంతు లేదు. జవాబు తెర మీద పెద్ద అక్షరాల్లో చూపిస్తున్నాను.", greetings:{}, replies:{}}
@@ -21,18 +23,61 @@ let current = null; // {lang, topic, index, card}
 
 // ---------- Cards: one shape for everything shown and spoken ----------
 // {topic, reply, title, lines[] (poem), steps[] (list), text, tips[], picture, emergency}
+// ---------- Baby age ----------
+let ageId = null;
+try { ageId = localStorage.getItem("bh-age"); } catch(e) {}
+function ageMax(){ const g = AGE.groups.find(g => g.id === ageId); return g ? g.maxMonths : 72; }
+function under1(){ return ageId === "u1"; }
+// "6 నెలలు – 2 సంవత్సరాలు" -> 6, "2 – 5 సంవత్సరాలు" -> 24
+function minMonths(item){
+  if (item.minMonths != null) return item.minMonths;
+  const a = item.age || "";
+  const m = a.match(/(\d+)\s*(నెల)?/);
+  if (!m) return 0;
+  return m[2] ? +m[1] : +m[1] * 12;
+}
+function ageMin(){ const i = AGE.groups.findIndex(g => g.id === ageId); return i <= 0 ? 0 : AGE.groups[i - 1].maxMonths + 1; }
+function fitsAge(item){ return minMonths(item) <= ageMax() && (item.maxMonths == null || item.maxMonths >= ageMin()); }
+// Researched activities for 8-month-olds (activities/8-months.json), turned into game items for both languages.
+let ACT = null, ACT_EN = [], ACT_TE = [];
+function loadActivities(data){
+  ACT = data;
+  const mk = (a, l) => Object.assign({}, a[l], {id: a.id, minMonths: 6, maxMonths: 18, keywords: a.keywords[l], activity: true});
+  ACT_EN = data.activities.map(a => mk(a, "en"));
+  ACT_TE = data.activities.map(a => mk(a, "te"));
+}
+function findActivity(text, l){
+  const list = l === "te" ? ACT_TE : ACT_EN;
+  return list.find(a => (a.keywords || []).some(k => l === "te" ? text.includes(k) : has(text, k.toLowerCase())));
+}
+function askedFor8Months(text, l){ return !!ACT && (ACT.keywords[l] || []).some(k => l === "te" ? text.includes(k) : has(text, k.toLowerCase())); }
+function enPool(topic){
+  if (topic === "food" && under1()) return CONTENT.en.food_u1;
+  let list = CONTENT.en[topic] || CONTENT.en.unknown;
+  if (topic === "game") list = list.concat(ACT_EN);
+  const ok = list.filter(fitsAge);
+  return ok.length ? ok : list;
+}
+function tePool(t){
+  let list = TE[TE_POOLS[t]] || [];
+  if (t === "game") list = list.concat(TE_EXTRA.games, ACT_TE);
+  const ok = list.filter(fitsAge);
+  return ok.length ? ok : list;
+}
 function pictureFor(name){
   const n = (name || "").toLowerCase();
   return PICTURES.find(p => p.id === n || p.words.includes(n));
 }
 function enCard(topic, index, picIndex){
   const r = UI.en.replies;
-  const list = CONTENT.en[topic] || CONTENT.en.unknown;
+  const list = enPool(topic);
   const item = list[index % list.length];
   const card = {topic, reply: r[topic] || "", title: item.title};
   if (topic === "song" || topic === "lullaby") card.lines = item.steps; else card.steps = item.steps;
+  if (item.needs) card.needs = [].concat(item.needs).join(", ");
+  if (item.safety) card.safety = item.safety;
   if (topic === "sleep") card.lines = CONTENT.en.lullaby[0].steps; // tips, then a lullaby to sing
-  if (topic === "picture") { card.picture = PICTURES[picIndex % PICTURES.length]; card.title = card.picture.en; card.steps = item.steps.slice(1); }
+  if (topic === "picture") { card.picture = PICTURES[picIndex % PICTURES.length]; card.title = card.picture.en; card.steps = (under1() && item.stepsU1 ? item.stepsU1 : item.steps).slice(1); }
   if (topic === "emergency" || topic === "sick") card.emergency = true;
   if (topic === "unknown") { card.reply = r.unknown; card.title = ""; card.steps = []; }
   return card;
@@ -45,12 +90,17 @@ function teCardFromItem(topic, item, reply, tips){
     if (item.lines) card.lines = item.lines;
     if (item.how) card.how = item.how;
     if (typeof item.steps === "string") card.text = item.steps;
-    if (item.needs) card.needs = item.needs;
+    if (Array.isArray(item.steps)) card.steps = item.steps;
+    if (item.needs) card.needs = [].concat(item.needs).join(", ");
+    if (item.safety) card.safety = item.safety;
     if (item.text) card.text = item.text;
     if (topic === "picture"){ card.picture = pictureFor(item.en) || PICTURES[0]; card.title = TE.picture_caption ? TE.picture_caption.replace("{name}", item.te) : item.te; card.pictureName = item.te; }
   }
   if (tips) card.tips = tips;
-  if (topic === "emergency") card.emergency = true;
+  if (topic === "picture" && under1()) card.reply = TE_EXTRA.picture_u1;
+  if (item && item.id === "chuk_chuk_railu" && under1()) card.how = TE_EXTRA.chuk_chuk_how_u1;
+  if (topic === "food" && under1()) card.tips = (card.tips || []).concat(TE_EXTRA.feeding_u1);
+  if (topic === "emergency"){ card.emergency = true; if (ageMax() <= 23) card.tips = [TE_EXTRA.choking_u1].concat(card.tips || []); }
   return card;
 }
 function teCard(topic, index){
@@ -65,7 +115,7 @@ function teCard(topic, index){
   if (topic === "emergency") return teCardFromItem("emergency", null, reply, TE.tips.safety);
   if (topic === "bath") return teCardFromItem("bath", TE.rhymes.find(r => r.id === "snanam_song"), reply, TE.tips.bath);
   const t = topic === "sleep" ? "lullaby" : topic;
-  const pool = TE[TE_POOLS[t]] || [];
+  const pool = tePool(t);
   return teCardFromItem(t, pool[index % pool.length], reply, t === "lullaby" ? TE.tips.sleep : null);
 }
 function fallbackTeCard(topic, index){
@@ -76,15 +126,25 @@ function fallbackTeCard(topic, index){
   if (topic === "picture"){ card.picture = PICTURES[index % PICTURES.length]; card.title = card.picture.te; }
   return card;
 }
+function baby8Card(l, index){
+  const list = l === "te" ? ACT_TE : ACT_EN;
+  const item = list[index % list.length];
+  const card = {topic: "baby8", reply: (l === "te" ? "8 నెలల బిడ్డతో ఇలా ఆడండి. ముందుగా ఈ జాగ్రత్తలు:" : "Here is a play idea for an 8-month-old. First, keep these in mind:"), title: item.title,
+    tips: ACT.general_safety[l], steps: item.steps, safety: item.safety, needs: [].concat(item.needs || []).join(", ")};
+  card.tipsFirstAll = true;
+  return card;
+}
 function makeCard(l, topic, index){
+  if (topic === "baby8") return baby8Card(l, index);
   if (topic === "unknown") return unknownCard(l);
   return l === "te" ? teCard(topic, index) : enCard(topic, index, index);
 }
 function poolSize(l, topic){
   if (topic === "picture") return PICTURES.length;
   if (topic === "bath" || topic === "sick" || topic === "greeting" || topic === "thanks") return 1;
-  if (l === "te" && TE){ const p = TE[TE_POOLS[topic === "sleep" ? "lullaby" : topic]]; return p ? p.length : 3; }
-  return (CONTENT[l][topic] || [1]).length;
+  if (topic === "baby8") return Math.max(1, ACT_EN.length);
+  if (l === "te" && TE){ const t = topic === "sleep" ? "lullaby" : topic; return TE_POOLS[t] ? tePool(t).length : 3; }
+  return enPool(topic).length;
 }
 
 // ---------- Understanding English ----------
@@ -114,6 +174,13 @@ function handle(raw){
 
   if (lang === "te" && te && TE) return handleTe(raw);
   const r = understandEn(raw);
+  // Activities only answer play-type asks, so "picture of a ball" or "drink water" keep their own topic.
+  if (ACT && (r.topic === "game" || r.topic === "unknown" || r.topic === "greeting")){
+    const lower = raw.toLowerCase();
+    const act = findActivity(lower, "en");
+    if (act && fitsAge(act)) return showActivity("en", act);
+    if (askedFor8Months(lower, "en")) { const i = Math.floor(Math.random() * ACT_EN.length); return show({lang, topic:"baby8", index:i, card: baby8Card("en", i)}, true); }
+  }
   if (r.topic === "stop") return stopAll(true);
   if (r.topic === "again" && current) return speakCard(current.card);
   if (r.topic === "next" && current) return nextOne();
@@ -123,8 +190,22 @@ function handle(raw){
   if (r.topic === "picture" && r.subject >= 0) index = r.subject;
   show({lang, topic: r.topic, index, card: makeCard(lang, r.topic, index)}, true);
 }
+function showActivity(l, act){
+  const pool = l === "te" ? tePool("game") : enPool("game");
+  const index = Math.max(0, pool.indexOf(act));
+  const card = l === "te" ? teCardFromItem("game", act, "", null) : enCardFromItem(act);
+  show({lang: l, topic: "game", index, card}, true);
+}
+function enCardFromItem(item){
+  return {topic:"game", reply: UI.en.replies.game, title: item.title, steps: item.steps, safety: item.safety, needs: [].concat(item.needs || []).join(", ")};
+}
 function handleTe(raw){
   let r = te.matchTelugu(raw, TE);
+  if (ACT && (r.intent === "game" || r.intent === "unknown" || r.intent === "greeting")){
+    const act = findActivity(raw, "te");
+    if (act && fitsAge(act)) return showActivity("te", act);
+    if (askedFor8Months(raw, "te")) { const i = Math.floor(Math.random() * ACT_TE.length); return show({lang, topic:"baby8", index:i, card: baby8Card("te", i)}, true); }
+  }
   // Drinking (తాగ) is not in the reviewed keywords yet; treat it as feeding.
   if (r.intent === "unknown" && raw.includes("తాగ")) r = te.matchTelugu("తినట్లేదు", TE);
   if (r.intent === "stop") return stopAll(true);
@@ -136,9 +217,10 @@ function handleTe(raw){
   }
   const topic = TE_TOPIC[r.intent] || "calm";
   if (topic === "bath") return show({lang, topic, index:0, card: teCardFromItem("bath", r.item || TE.rhymes.find(x => x.id === "snanam_song"), r.reply, r.tips || TE.tips.bath)}, true);
-  const pool = TE[TE_POOLS[topic]] || [];
-  const index = Math.max(0, pool.indexOf(r.item));
-  show({lang, topic, index, card: teCardFromItem(topic, r.item, r.reply, r.tips)}, true);
+  const pool = TE_POOLS[topic] ? tePool(topic) : [];
+  let item = r.item, index = Math.max(0, pool.indexOf(item));
+  if (topic === "game" && item && !pool.includes(item)){ index = Math.floor(Math.random() * pool.length); item = pool[index]; } // too old for this baby
+  show({lang, topic, index, card: teCardFromItem(topic, item, r.reply, r.tips)}, true);
 }
 function unknownCard(l){
   if (l === "te") return {topic:"unknown", reply: (TE && TE.ui.not_understood) || CONTENT.te.unknown[0].steps[0], title:""};
@@ -158,14 +240,15 @@ function show(state, speakIt){
   $("answer").hidden = false;
   $("sos").hidden = !card.emergency && card.topic !== "calm";
   $("answer-reply").textContent = card.reply || "";
-  const tipsFirst = (card.topic === "lullaby" || card.topic === "bath") && card.tips && card.lines;
+  const tipsFirst = ((card.topic === "lullaby" || card.topic === "bath") && card.tips && card.lines) || card.tipsFirstAll;
   $("answer-title").textContent = tipsFirst ? "" : (card.title || "");
   const body = document.createElement("div");
   const add = (tag, text, parent = body) => { const e = document.createElement(tag); e.textContent = text; parent.appendChild(e); return e; };
   if (tipsFirst){ // calm/safe steps first, then the song under its own heading
     const ol = add("ol", ""); ol.className = "tips"; card.tips.forEach(s => add("li", s, ol));
-    add("h2", "🎵 " + card.title);
+    add("h2", (card.lines ? "🎵 " : "") + card.title);
   }
+  if (card.safety){ const ul = add("ul", ""); ul.className = "safety"; card.safety.forEach(s => add("li", "⚠️ " + s, ul)); }
   if (card.how) add("p", card.how);
   if (card.lines) card.lines.forEach(l => add("p", l).className = "line");
   if (card.text) add("p", card.text);
@@ -185,7 +268,7 @@ function show(state, speakIt){
 // Cloud/neural voices ("Natural", "Online", "Google", "Enhanced", "Premium") sound far less robotic than
 // the small offline ones, so they rank first. The viewer can cycle through the rest with the voice button.
 const GOOD = [/natural/i, /neural/i, /online/i, /premium/i, /enhanced/i, /google/i, /siri/i, /samantha|karen|daniel|moira|tessa|rishi|veena|lekha/i];
-const BAD = [/compact/i, /espeak/i, /robot|zarvox|bad news|bells|boing|bubbles|cellos|trinoids|whisper|wobble|jester|organ|superstar/i];
+const BAD = [/compact/i, /espeak/i, /robot|zarvox|bad news|good news|bells|boing|bubbles|cellos|trinoids|whisper|wobble|jester|organ|superstar|bahh|albert|fred|junior|ralph|kathy|eddy|flo\b|grandma|grandpa|reed|rocko|sandy|shelley/i];
 function voicesFor(code){
   const vs = ("speechSynthesis" in window) ? speechSynthesis.getVoices() : [];
   const c = code.toLowerCase(), base = c.slice(0, 2);
@@ -198,7 +281,7 @@ function voicesFor(code){
     if (!v.localService) s += 5;                     // network voices are usually the neural ones
     return s;
   };
-  return vs.map(v => [v, score(v)]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+  return vs.map(v => [v, score(v)]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]).map(x => x[0]).slice(0, 4);
 }
 let voicePick = {};
 try { voicePick = JSON.parse(localStorage.getItem("bh-voice") || "{}"); } catch(e) {}
@@ -222,7 +305,8 @@ function partsOf(card){
   if (card.reply) parts.push(card.reply);
   if (card.title && card.topic !== "picture") parts.push(card.title);
   if (card.topic === "picture" && card.picture) parts.push(card.pictureName || card.picture.en);
-  const tipsFirst = card.topic === "lullaby" || card.topic === "bath";            // calm the room first, then sing
+  if (card.safety) parts.push(...card.safety);            // safety before the steps
+  const tipsFirst = card.topic === "lullaby" || card.topic === "bath" || card.tipsFirstAll; // calm/safe first
   if (tipsFirst && card.tips) parts.push(...card.tips);
   if (card.lines) parts.push(...card.lines);           // one line per utterance so rhymes sound sung
   if (card.text) parts.push(card.text);
@@ -232,9 +316,17 @@ function partsOf(card){
   return parts;
 }
 function speakCard(card){ speakParts(partsOf(card)); }
-function speakParts(parts){
+function speakParts(parts, waited){
   if (!("speechSynthesis" in window)) return;
   speechSynthesis.cancel();
+  // Voices load late on some phones; wait for them once instead of staying silent.
+  if (!waited && !speechSynthesis.getVoices().length){
+    let done = false;
+    const go = () => { if (!done){ done = true; speakParts(parts, true); } };
+    speechSynthesis.addEventListener("voiceschanged", go, {once: true});
+    setTimeout(go, 1500);
+    return;
+  }
   const code = lang === "te" ? "te-IN" : "en-IN";
   const v = voiceFor(code);
   if (lang === "te" && !v){ $("voice-note").textContent = UI.te.noVoice; $("voice-note").hidden = false; return; } // English voice reading Telugu sounds wrong
@@ -259,6 +351,23 @@ function greeting(){
   if (lang === "te") return "";
   return h >= 5 && h < 12 ? g.morning : h < 16 && h >= 12 ? g.afternoon : h >= 16 && h < 20 ? g.evening : g.night;
 }
+function renderAge(){
+  const box = $("age"), q = $("age-q"), opts = $("age-opts"), chip = $("age-chip");
+  q.textContent = AGE.question[lang];
+  opts.replaceChildren(...AGE.groups.map(g => {
+    const b = document.createElement("button"); b.className = "age-opt" + (g.id === ageId ? " on" : "");
+    b.textContent = g[lang]; b.addEventListener("click", () => setAge(g.id)); return b;
+  }));
+  const g = AGE.groups.find(g => g.id === ageId);
+  chip.hidden = !g; box.hidden = !!g;
+  if (g) chip.textContent = "👶 " + AGE.chip[lang] + ": " + g[lang] + " ✎";
+}
+function setAge(id){
+  ageId = id;
+  try { localStorage.setItem("bh-age", id); } catch(e) {}
+  renderAge();
+  if (current) show({lang: current.lang, topic: current.topic, index: 0, card: makeCard(current.lang, current.topic, 0)}, false);
+}
 function setLang(l){
   lang = l;
   try { localStorage.setItem("bh-lang", l); } catch(e) {}
@@ -271,6 +380,7 @@ function setLang(l){
   $("typed-input").placeholder = t.typed; $("typed-go").textContent = t.go;
   $("lang-te").classList.toggle("on", l === "te"); $("lang-en").classList.toggle("on", l === "en");
   $("greeting").textContent = greeting();
+  renderAge();
   if (current && current.lang !== l){
     show({lang: l, topic: current.topic, index: current.index, card: makeCard(l, current.topic, current.index)}, false);
   }
@@ -281,7 +391,14 @@ const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 let rec = null, listening = false;
 function listen(){
   if ("speechSynthesis" in window) speechSynthesis.cancel();
-  if (!SR){ $("heard").textContent = UI[lang].noMic; say(UI[lang].noMic); return; }
+  if (!SR){
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    const msg = UI[lang].dictate + (ios && /CriOS|FxiOS|EdgiOS/.test(navigator.userAgent) ? " " + UI[lang].trySafari : "");
+    $("heard").textContent = msg;
+    const box = $("typed-input"); box.scrollIntoView({behavior:"smooth", block:"center"}); box.focus();
+    say(UI[lang].dictateShort);
+    return;
+  }
   if (listening){ rec.stop(); return; }
   rec = new SR();
   rec.lang = lang === "te" ? "te-IN" : "en-IN";
@@ -317,6 +434,7 @@ $("again").addEventListener("click", () => current && speakCard(current.card));
 $("next").addEventListener("click", () => current && nextOne());
 $("stop").addEventListener("click", () => stopAll(false));
 $("voice").addEventListener("click", nextVoice);
+$("age-chip").addEventListener("click", () => { $("age").hidden = false; $("age-chip").hidden = true; });
 $("print").addEventListener("click", () => { stopAll(false); window.print(); });
 $("typed").addEventListener("submit", e => { e.preventDefault(); handle($("typed-input").value); $("typed-input").value = ""; });
 if ("speechSynthesis" in window) speechSynthesis.getVoices(); // warm up the voice list
@@ -327,6 +445,7 @@ try {
   te = await import("./telugu/te-intents.js");
   TE = await (await fetch("./telugu/te.json")).json();
   UI.te.noVoice = TE.ui.no_telugu_voice || UI.te.noVoice;
+  try { loadActivities(await (await fetch("./activities/8-months.json")).json()); } catch(e) { console.warn("8-month activities not loaded", e); }
   setLang(lang);
 } catch(e) { te = null; TE = null; console.warn("Telugu data not loaded, using built-in Telugu", e); }
 

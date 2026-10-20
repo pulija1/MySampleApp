@@ -3,11 +3,12 @@
 window.CONTENT = {
   en: {
     game: [
-      {title: "Peekaboo", steps: ["Hide your face behind your hands or a soft cloth.", "Say: Where is grandma?", "Open your hands and say: Peekaboo! Smile big.", "Repeat slowly. Babies love the surprise."]},
-      {title: "Stack and knock", steps: ["Stack three or four plastic cups or small boxes.", "Let the child knock them down.", "Clap and cheer. Build again together."]},
-      {title: "Animal sounds", steps: ["Say an animal name: cow, cat, dog.", "Make the sound: moo, meow, woof.", "Ask the child to copy you. Laugh together."]},
-      {title: "Ball roll", steps: ["Sit on the floor facing the child, legs apart.", "Roll a soft ball gently to them.", "Ask them to roll it back. Cheer every time."]},
-      {title: "Clap along", steps: ["Hold the baby's hands gently.", "Clap them together while you sing or count one, two, three.", "Go slow, then a little fast, then slow again."]}
+      {title: "Peekaboo", minMonths: 6, steps: ["Hide your face behind your hands or a soft cloth.", "Say: Where is grandma?", "Open your hands and say: Peekaboo! Smile big.", "Repeat slowly. Babies love the surprise."]},
+      {title: "Stack and knock", minMonths: 9, steps: ["Stack three or four plastic cups or small boxes.", "Let the child knock them down.", "Clap and cheer. Build again together."]},
+      {title: "Animal sounds", minMonths: 6, steps: ["Say an animal name: cow, cat, dog.", "Make the sound: moo, meow, woof.", "Ask the child to copy you. Laugh together."]},
+      {title: "Ball roll", minMonths: 10, steps: ["Sit on the floor facing the child, legs apart.", "Roll a soft ball gently to them.", "Ask them to roll it back. Cheer every time."]},
+      {title: "Clap along", minMonths: 6, steps: ["Hold the baby's hands gently.", "Clap them together while you sing or count one, two, three.", "Go slow, then a little fast, then slow again."]},
+      {title: "Mirror baby", minMonths: 4, steps: ["Hold the baby in front of a mirror.", "Point and name: here is your nose, here are your eyes, here are your ears.", "Wave at the baby in the mirror. Babies love to see themselves smile."]}
     ],
     song: [
       {title: "Little star song", steps: ["Little star up in the night,", "Shining small and shining bright,", "Close your eyes and dream with me,", "Little star, so sleepy."]},
@@ -25,18 +26,21 @@ window.CONTENT = {
     food: [
       {title: "Feeding time", steps: ["Wash your hands and the child's hands.", "Give soft food in small pieces, like banana or soft rice.", "Always sit with the child while eating.", "Avoid whole grapes, nuts and hard pieces. They can cause choking."]}
     ],
+    food_u1: [
+      {title: "Feeding a baby under 1 year", steps: ["No honey before 1 year. It can make babies very ill.", "No added salt or sugar. Cow's milk should not be the main drink before 1 year.", "Give mashed food, or soft finger-size pieces that squash easily between your fingers.", "Always sit with the baby while eating. Never give whole grapes, nuts, popcorn, raw carrot, apple pieces or whole chana."]}
+    ],
     story: [
       {title: "The little elephant", steps: ["A little elephant wanted to touch the moon.", "He stretched his trunk up, up, up!", "A bird said: The moon is far, but I can sing to it for you.", "The bird sang, the moon smiled, and the elephant fell asleep happy."]},
       {title: "The kind crow", steps: ["A crow found one roti.", "He saw a hungry sparrow.", "He broke the roti and shared half.", "Now they eat together every day. Sharing makes friends."]}
     ],
     picture: [
-      {title: "Picture to color", steps: ["Here is a picture to color. Tap Print to print it.", "Give the child big crayons and let them color freely."]}
+      {title: "Picture to color", steps: ["Here is a picture to color. Tap Print to print it.", "Give the child big crayons and let them color freely."], stepsU1: ["Here is a picture. Tap Print to print it.", "Show the picture, point and name it, for example: This is a cow. Moo! You can stick it on the wall at the baby's eye level. Crayons go in the mouth at this age, so grown-ups do the colouring."]}
     ],
     lullaby: [
       {title: "Sleepy lullaby", steps: ["Hush now, little one, the day is done,", "The birds are home, so is the sun,", "Grandma is here, holding you tight,", "Close your eyes now, sleep tight."]}
     ],
     emergency: [
-      {title: "Call for help now", steps: ["If the baby is not breathing well, is choking, will not wake up, has a fit, or bleeding will not stop: call 108 now.", "If choking and the baby cannot cry or cough: lay the baby face down on your arm and give 5 firm back pats between the shoulders.", "After calling 108, call the parents."]}
+      {title: "Call for help now", steps: ["If the baby is not breathing well, is choking, will not wake up, has a fit, or bleeding will not stop: call 108 now.", "If a baby under 1 year is choking and cannot cry or cough: lay the baby face down along your arm and give 5 firm back blows between the shoulders. Then turn the baby face up and give 5 chest thrusts with two fingers in the middle of the chest. Repeat until 108 arrives.", "After calling 108, call the parents."]}
     ],
     sick: [
       {title: "Fever or feeling sick", steps: ["Feel the forehead and neck. If the baby is very hot, take the temperature if you can.", "Give small sips of water or milk often. Dress the baby in light, loose clothes.", "Do not give any medicine unless the parents or a doctor said so.", "Call the parents or a doctor now. If the baby is under 3 months with fever, keeps vomiting, is very sleepy, has a fit, or has trouble breathing: call 108."]}
@@ -114,3 +118,29 @@ window.KEYWORDS = [
   ["again", ["again","repeat","మళ్ళీ","మళ్లీ","మరలా"]],
   ["greeting", ["hello","hi","hey","namaste","good morning","good afternoon","good evening"]]
 ];
+
+// Age-specific extras (added after the phone and age test). The Telugu here was written by the
+// builder and still needs the Telugu team's review; move it into te.json once reviewed.
+window.AGE = {
+  groups: [
+    {id: "u1", maxMonths: 11, en: "Under 1 year", te: "1 సంవత్సరం లోపు"},
+    {id: "1to2", maxMonths: 23, en: "1 to 2 years", te: "1 – 2 సంవత్సరాలు"},
+    {id: "2to5", maxMonths: 72, en: "2 to 5 years", te: "2 – 5 సంవత్సరాలు"}
+  ],
+  question: {en: "How old is the baby?", te: "బిడ్డ వయసు ఎంత?"},
+  chip: {en: "Age", te: "వయసు"}
+};
+window.TE_EXTRA = {
+  games: [
+    {id: "mirror_baby", title: "అద్దంలో పాపాయి", age: "4 నెలలు – 2 సంవత్సరాలు", steps: "బిడ్డను అద్దం ముందు పట్టుకోండి. ముక్కు, కళ్ళు, చెవులు చూపిస్తూ 'ఇదిగో ముక్కు, ఇవిగో కళ్ళు' అని చెప్పండి. బిడ్డ తనను చూసుకుని నవ్వుతుంది.", needs: "ఒక అద్దం"}
+  ],
+  feeding_u1: [
+    "ఒక సంవత్సరం లోపు బిడ్డకు తేనె అస్సలు ఇవ్వకండి.",
+    "ఉప్పు, చక్కెర కలపకండి. ఒక సంవత్సరం లోపు ఆవు పాలు ముఖ్య ఆహారంగా ఇవ్వకండి.",
+    "మెత్తగా మెదిపి ఇవ్వండి, లేదా వేళ్ళతో నొక్కితే నలిగే మెత్తని, వేలు సైజు ముక్కలు ఇవ్వండి.",
+    "పాప్‌కార్న్, పచ్చి క్యారెట్, ఆపిల్ ముక్కలు, శనగలు ఇవ్వకండి."
+  ],
+  choking_u1: "ఒక సంవత్సరం లోపు బిడ్డ గొంతులో ఏదైనా అడ్డుపడితే: బిడ్డను మీ చేతి మీద బోర్లా పడుకోబెట్టి భుజాల మధ్య 5 సార్లు గట్టిగా తట్టండి. తర్వాత వెల్లకిలా తిప్పి, ఛాతీ మధ్యలో రెండు వేళ్ళతో 5 సార్లు నొక్కండి. 108 వచ్చే వరకు ఇలా చేస్తూ ఉండండి.",
+  chuk_chuk_how_u1: "బిడ్డను మీ మోకాళ్ళ మీద కూర్చోబెట్టి, రైలులా మెల్లగా ఊపుతూ పాడండి.",
+  picture_u1: "బొమ్మ చూపించి పేరు చెప్పండి: 'ఇది ఆవు. అంబా!' బిడ్డ కళ్ళకు కనిపించేలా గోడకు అతికించవచ్చు. క్రేయాన్లు బిడ్డ నోట్లో పెట్టుకోవచ్చు, కాబట్టి రంగులు పెద్దవాళ్ళే వేయండి."
+};
