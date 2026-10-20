@@ -53,3 +53,5 @@ button,input{font-family:inherit}
 .safety{list-style:none;padding:10px 12px;margin:0 0 10px;background:#fff3cd;border-radius:14px;color:#5a4300}
 .safety li{margin:4px 0}
 .age-chip{min-height:48px}
+.act.rec{flex-basis:100%;background:#e8f1ff;color:#1b3a6b}
+.act.rec.recording{background:#c62828;color:#fff;animation:pulse 1s infinite}

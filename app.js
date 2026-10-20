@@ -3,6 +3,9 @@
 const UI = {
   en: {title:"Baby Helper", mic:"Tap and speak", listening:"Listening… speak now", song:"Song", game:"Game", story:"Story", picture:"Picture", calm:"Baby crying", sleep:"Sleep",
        again:"Say again", next:"Another one", stop:"Stop", ask:"Ask again", voice:"Change voice",
+       rec:"Record in my voice", recAgain:"Record again", recStop:"Tap to finish recording", recDel:"Delete my recording",
+       recHint:"Recording… read or sing the answer above, then tap the red button.", recSaved:"Saved. This answer will now play in your voice.", recDeleted:"Recording deleted. The phone voice will read it again.",
+       recTooShort:"That was too short. Please try again.", recFailed:"Could not save the recording on this phone.", recNotSupported:"This browser cannot record. Please update the phone's browser.",
        dictate:"Tap the 🎤 on the keyboard below, speak, then tap Go.", dictateShort:"Tap the microphone on the keyboard and speak.", trySafari:"In Safari, the big speaker button can listen by itself.", print:"Print", sos:"Call 108", typed:"Or type here", go:"Go",
        noMic:"Voice is not available in this browser. Please tap a big button or type.", micPermission:"Please allow the microphone. Tap 'Allow' at the top.",
        heardNothing:"I did not hear you. Please tap and try again.", stopped:"OK, stopped. Tap the speaker when you need me.",
@@ -10,6 +13,9 @@ const UI = {
        replies:{song:"Here is a song. Clap along!", lullaby:"Dim the light and rock gently. Here is a lullaby.", game:"Here is an easy game.", story:"Here is a short story.", picture:"Here is a picture. Tap Print to print it.", calm:"Don't worry. Try these:", sleep:"Try these to help the baby sleep:", food:"Try these at meal time:", emergency:"This is important. Call 108 now if the baby is in danger.", sick:"Please call the parents or a doctor. Meanwhile:", bath:"Here is how to make bath time safe and fun:", greeting:"Hello! I am here to help.", thanks:"Happy to help!", unknown:"Sorry, I did not understand. Say: song, game, story, picture, or baby is crying."}},
   te: {title:"చిన్నారి సహాయి", mic:"నొక్కి మాట్లాడండి", listening:"వింటున్నాను… చెప్పండి", song:"పాట", game:"ఆట", story:"కథ", picture:"బొమ్మ", calm:"బిడ్డ ఏడుపు", sleep:"నిద్ర",
        again:"మళ్ళీ వినండి", next:"ఇంకొకటి", stop:"ఆపు", ask:"మళ్ళీ అడగండి", voice:"గొంతు మార్చు",
+       rec:"నా గొంతులో రికార్డ్ చేయండి", recAgain:"మళ్ళీ రికార్డ్ చేయండి", recStop:"ఆపడానికి నొక్కండి", recDel:"నా రికార్డింగ్ తీసేయండి",
+       recHint:"రికార్డ్ అవుతోంది… పైన ఉన్నది చదవండి లేదా పాడండి, తర్వాత ఎర్ర బటన్ నొక్కండి.", recSaved:"సేవ్ అయింది. ఇకపై ఈ జవాబు మీ గొంతులోనే వినిపిస్తుంది.", recDeleted:"రికార్డింగ్ తీసేశాను. ఫోన్ గొంతు మళ్ళీ చదువుతుంది.",
+       recTooShort:"చాలా చిన్నగా ఉంది. మళ్ళీ ప్రయత్నించండి.", recFailed:"ఈ ఫోన్‌లో రికార్డింగ్ సేవ్ కాలేదు.", recNotSupported:"ఈ బ్రౌజర్‌లో రికార్డ్ చేయలేము. ఫోన్ బ్రౌజర్ అప్‌డేట్ చేయండి.",
        dictate:"కింద కీబోర్డ్‌లో 🎤 నొక్కి మాట్లాడండి, తర్వాత 'చూపించు' నొక్కండి.", dictateShort:"కీబోర్డ్‌లో మైక్ నొక్కి మాట్లాడండి.", trySafari:"Safari లో అయితే పెద్ద స్పీకర్ బటన్ నేరుగా వింటుంది.", print:"ప్రింట్ చేయండి", sos:"108 కి ఫోన్ చేయండి", typed:"లేదా ఇక్కడ టైప్ చేయండి", go:"చూపించు",
        noMic:"ఈ బ్రౌజర్‌లో వాయిస్ పనిచేయదు. పెద్ద బటన్ నొక్కండి లేదా టైప్ చేయండి.", micPermission:"మైక్ వాడటానికి అనుమతి ఇవ్వండి. పైన 'Allow' నొక్కండి.",
        heardNothing:"క్షమించండి, నాకు వినిపించలేదు. మళ్ళీ నొక్కి చెప్పండి.", stopped:"సరే, ఆపేశాను. మళ్ళీ కావాలంటే మైక్ నొక్కండి.",
@@ -269,6 +275,7 @@ function show(state, speakIt){
   $("picture").innerHTML = card.picture ? renderPicture(card.picture, state.lang, card.pictureName) : "";
   $("print").hidden = !card.picture;
   $("answer").scrollIntoView({behavior:"smooth", block:"start"});
+  refreshRecButtons();
   if (speakIt) speakCard(card);
 }
 
@@ -324,7 +331,70 @@ function partsOf(card){
   if (!tipsFirst && card.tips) parts.push(...card.tips);
   return parts;
 }
-function speakCard(card){ speakParts(partsOf(card)); }
+// ---------- Family recordings ----------
+// A family member can record any answer (a song, a story, tips) in their own voice. The recording is kept
+// on this phone (IndexedDB) and plays instead of the phone's synthetic voice from then on.
+const REC_DB = "bh-recordings";
+function recDb(){
+  return new Promise((ok, bad) => {
+    try {
+      const r = indexedDB.open(REC_DB, 1);
+      r.onupgradeneeded = () => r.result.createObjectStore("clips");
+      r.onsuccess = () => ok(r.result); r.onerror = () => bad(r.error);
+    } catch(e) { bad(e); }
+  });
+}
+async function recGet(key){ try { const db = await recDb(); return await new Promise(ok => { const q = db.transaction("clips").objectStore("clips").get(key); q.onsuccess = () => ok(q.result || null); q.onerror = () => ok(null); }); } catch(e) { return null; } }
+async function recPut(key, blob){ const db = await recDb(); return new Promise((ok, bad) => { const t = db.transaction("clips", "readwrite"); t.objectStore("clips").put(blob, key); t.oncomplete = ok; t.onerror = () => bad(t.error); }); }
+async function recDel(key){ try { const db = await recDb(); db.transaction("clips", "readwrite").objectStore("clips").delete(key); } catch(e) {} }
+function cardKey(card, l){ return [l || lang, card.topic, card.title || "", card.pictureName || ""].join("|"); }
+let player = null;
+function playBlob(blob){
+  stopAudio();
+  player = new Audio(URL.createObjectURL(blob));
+  player.play().catch(() => {});
+}
+function stopAudio(){ if (player){ player.pause(); URL.revokeObjectURL(player.src); player = null; } }
+async function refreshRecButtons(){
+  if (!current) return;
+  const has = !!(await recGet(cardKey(current.card, current.lang)));
+  $("rec-label").textContent = has ? UI[lang].recAgain : UI[lang].rec;
+  $("rec-del").hidden = !has;
+}
+let recorder = null, recChunks = [];
+async function toggleRecording(){
+  if (recorder){ recorder.stop(); return; }
+  if (!navigator.mediaDevices || !window.MediaRecorder){ $("voice-note").textContent = UI[lang].recNotSupported; $("voice-note").hidden = false; return; }
+  stopAll(false);
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({audio: true}); }
+  catch(e) { $("voice-note").textContent = UI[lang].micPermission; $("voice-note").hidden = false; return; }
+  const key = cardKey(current.card, current.lang);
+  recChunks = [];
+  recorder = new MediaRecorder(stream);
+  recorder.ondataavailable = e => { if (e.data && e.data.size) recChunks.push(e.data); };
+  recorder.onstop = async () => {
+    stream.getTracks().forEach(t => t.stop());
+    $("rec").classList.remove("recording");
+    const blob = new Blob(recChunks, {type: recorder.mimeType || "audio/webm"});
+    recorder = null;
+    if (blob.size < 2000){ $("voice-note").textContent = UI[lang].recTooShort; $("voice-note").hidden = false; refreshRecButtons(); return; }
+    try { await recPut(key, blob); $("voice-note").textContent = UI[lang].recSaved; }
+    catch(e) { $("voice-note").textContent = UI[lang].recFailed; }
+    $("voice-note").hidden = false;
+    refreshRecButtons();
+    playBlob(blob);
+  };
+  recorder.start();
+  $("rec").classList.add("recording");
+  $("rec-label").textContent = UI[lang].recStop;
+  $("voice-note").textContent = UI[lang].recHint; $("voice-note").hidden = false;
+}
+async function speakCard(card){
+  const clip = current && await recGet(cardKey(card, current.lang));
+  if (clip) return playBlob(clip);
+  speakParts(partsOf(card));
+}
 function speakParts(parts, waited){
   if (!("speechSynthesis" in window)) return;
   speechSynthesis.cancel();
@@ -343,6 +413,7 @@ function speakParts(parts, waited){
 function say(text){ speakParts([text]); }
 function stopAll(withMessage){
   if ("speechSynthesis" in window) speechSynthesis.cancel();
+  stopAudio();
   if (rec && listening) rec.stop();
   if (withMessage) $("heard").textContent = UI[lang].stopped;
 }
@@ -379,7 +450,7 @@ function setLang(l){
   const t = UI[l];
   $("title").textContent = t.title; $("mic-label").textContent = t.mic;
   ["song","game","story","picture","calm","sleep"].forEach(k => $("q-"+k).textContent = t[k]);
-  $("again-label").textContent = t.again; $("next-label").textContent = t.next; $("stop-label").textContent = t.stop; $("ask-label").textContent = t.ask; $("voice-label").textContent = t.voice;
+  $("again-label").textContent = t.again; $("next-label").textContent = t.next; $("stop-label").textContent = t.stop; $("ask-label").textContent = t.ask; $("voice-label").textContent = t.voice; $("rec-label").textContent = t.rec; $("rec-del-label").textContent = t.recDel; refreshRecButtons();
   $("print-label").textContent = t.print; $("sos-label").textContent = t.sos;
   $("typed-input").placeholder = t.typed; $("typed-go").textContent = t.go;
   $("lang-te").classList.toggle("on", l === "te"); $("lang-en").classList.toggle("on", l === "en");
@@ -438,6 +509,8 @@ $("again").addEventListener("click", () => current && speakCard(current.card));
 $("next").addEventListener("click", () => current && nextOne());
 $("stop").addEventListener("click", () => stopAll(false));
 $("voice").addEventListener("click", nextVoice);
+$("rec").addEventListener("click", () => current && toggleRecording());
+$("rec-del").addEventListener("click", async () => { if (!current) return; await recDel(cardKey(current.card, current.lang)); $("voice-note").textContent = UI[lang].recDeleted; $("voice-note").hidden = false; refreshRecButtons(); });
 $("age-chip").addEventListener("click", () => { $("age").hidden = false; $("age-chip").hidden = true; });
 $("print").addEventListener("click", () => { stopAll(false); window.print(); });
 $("typed").addEventListener("submit", e => { e.preventDefault(); handle($("typed-input").value); $("typed-input").value = ""; });
