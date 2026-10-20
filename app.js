@@ -2,13 +2,13 @@
 // reviewed data (telugu/te.json + telugu/te-intents.js); content.js is the fallback.
 const UI = {
   en: {title:"Baby Helper", mic:"Tap and speak", listening:"Listening… speak now", song:"Song", game:"Game", story:"Story", picture:"Picture", calm:"Baby crying", sleep:"Sleep",
-       again:"Say again", next:"Another one", stop:"Stop", ask:"Ask again", print:"Print", sos:"Call 108", typed:"Or type here", go:"Go",
+       again:"Say again", next:"Another one", stop:"Stop", ask:"Ask again", voice:"Change voice", print:"Print", sos:"Call 108", typed:"Or type here", go:"Go",
        noMic:"Voice is not available in this browser. Please tap a big button or type.", micPermission:"Please allow the microphone. Tap 'Allow' at the top.",
        heardNothing:"I did not hear you. Please tap and try again.", stopped:"OK, stopped. Tap the speaker when you need me.",
        greetings:{morning:"Good morning! A song, a game or a story?", afternoon:"Good afternoon! Shall I suggest an easy game?", evening:"Good evening! A song or a story for the little one?", night:"Good night. Shall I sing a lullaby?"},
        replies:{song:"Here is a song. Clap along!", lullaby:"Dim the light and rock gently. Here is a lullaby.", game:"Here is an easy game.", story:"Here is a short story.", picture:"Here is a picture. Tap Print to print it.", calm:"Don't worry. Try these:", sleep:"Try these to help the baby sleep:", food:"Try these at meal time:", emergency:"This is important. Call 108 now if the baby is in danger.", sick:"Please call the parents or a doctor. Meanwhile:", bath:"Here is how to make bath time safe and fun:", greeting:"Hello! I am here to help.", thanks:"Happy to help!", unknown:"Sorry, I did not understand. Say: song, game, story, picture, or baby is crying."}},
   te: {title:"చిన్నారి సహాయి", mic:"నొక్కి మాట్లాడండి", listening:"వింటున్నాను… చెప్పండి", song:"పాట", game:"ఆట", story:"కథ", picture:"బొమ్మ", calm:"బిడ్డ ఏడుపు", sleep:"నిద్ర",
-       again:"మళ్ళీ వినండి", next:"ఇంకొకటి", stop:"ఆపు", ask:"మళ్ళీ అడగండి", print:"ప్రింట్ చేయండి", sos:"108 కి ఫోన్ చేయండి", typed:"లేదా ఇక్కడ టైప్ చేయండి", go:"చూపించు",
+       again:"మళ్ళీ వినండి", next:"ఇంకొకటి", stop:"ఆపు", ask:"మళ్ళీ అడగండి", voice:"గొంతు మార్చు", print:"ప్రింట్ చేయండి", sos:"108 కి ఫోన్ చేయండి", typed:"లేదా ఇక్కడ టైప్ చేయండి", go:"చూపించు",
        noMic:"ఈ బ్రౌజర్‌లో వాయిస్ పనిచేయదు. పెద్ద బటన్ నొక్కండి లేదా టైప్ చేయండి.", micPermission:"మైక్ వాడటానికి అనుమతి ఇవ్వండి. పైన 'Allow' నొక్కండి.",
        heardNothing:"క్షమించండి, నాకు వినిపించలేదు. మళ్ళీ నొక్కి చెప్పండి.", stopped:"సరే, ఆపేశాను. మళ్ళీ కావాలంటే మైక్ నొక్కండి.",
        noVoice:"ఈ ఫోన్‌లో తెలుగు గొంతు లేదు. జవాబు తెర మీద పెద్ద అక్షరాల్లో చూపిస్తున్నాను.", greetings:{}, replies:{}}
@@ -181,10 +181,41 @@ function show(state, speakIt){
 }
 
 // ---------- Speaking ----------
-function voiceFor(code){
+// Pick the most natural-sounding voice the phone has for this language.
+// Cloud/neural voices ("Natural", "Online", "Google", "Enhanced", "Premium") sound far less robotic than
+// the small offline ones, so they rank first. The viewer can cycle through the rest with the voice button.
+const GOOD = [/natural/i, /neural/i, /online/i, /premium/i, /enhanced/i, /google/i, /siri/i, /samantha|karen|daniel|moira|tessa|rishi|veena|lekha/i];
+const BAD = [/compact/i, /espeak/i, /robot|zarvox|bad news|bells|boing|bubbles|cellos|trinoids|whisper|wobble|jester|organ|superstar/i];
+function voicesFor(code){
   const vs = ("speechSynthesis" in window) ? speechSynthesis.getVoices() : [];
-  const c = code.toLowerCase();
-  return vs.find(v => (v.lang || "").toLowerCase().replace("_","-") === c) || vs.find(v => (v.lang || "").toLowerCase().startsWith(c.slice(0,2)));
+  const c = code.toLowerCase(), base = c.slice(0, 2);
+  const score = v => {
+    const l = (v.lang || "").toLowerCase().replace("_", "-");
+    if (!l.startsWith(base)) return -1;
+    if (BAD.some(r => r.test(v.name))) return 0;
+    let s = l === c ? 20 : 10;                       // exact region first (en-IN, te-IN)
+    GOOD.forEach((r, i) => { if (r.test(v.name)) s += 30 - i; });
+    if (!v.localService) s += 5;                     // network voices are usually the neural ones
+    return s;
+  };
+  return vs.map(v => [v, score(v)]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+}
+let voicePick = {};
+try { voicePick = JSON.parse(localStorage.getItem("bh-voice") || "{}"); } catch(e) {}
+function voiceFor(code){
+  const list = voicesFor(code);
+  return list.find(v => v.name === voicePick[code]) || list[0];
+}
+function nextVoice(){
+  const code = lang === "te" ? "te-IN" : "en-IN";
+  const list = voicesFor(code);
+  if (!list.length){ $("voice-note").textContent = lang === "te" ? UI.te.noVoice : "No voice found on this phone."; $("voice-note").hidden = false; return; }
+  const cur = list.indexOf(voiceFor(code));
+  const v = list[(cur + 1) % list.length];
+  voicePick[code] = v.name;
+  try { localStorage.setItem("bh-voice", JSON.stringify(voicePick)); } catch(e) {}
+  $("voice-note").textContent = "🗣️ " + v.name + " (" + ((list.indexOf(v) + 1) + "/" + list.length) + ")"; $("voice-note").hidden = false;
+  speakParts([lang === "te" ? "నమస్కారం! ఈ గొంతు బాగుందా?" : "Hello! Do you like this voice?"]);
 }
 function partsOf(card){
   const parts = [];
@@ -209,7 +240,7 @@ function speakParts(parts){
   if (lang === "te" && !v){ $("voice-note").textContent = UI.te.noVoice; $("voice-note").hidden = false; return; } // English voice reading Telugu sounds wrong
   parts.forEach(p => {
     const u = new SpeechSynthesisUtterance(p);
-    u.lang = code; u.rate = 0.85; if (v) u.voice = v;
+    u.lang = code; u.rate = lang === "te" ? 0.85 : 0.92; u.pitch = 1; if (v) u.voice = v;
     speechSynthesis.speak(u);
   });
 }
@@ -235,7 +266,7 @@ function setLang(l){
   const t = UI[l];
   $("title").textContent = t.title; $("mic-label").textContent = t.mic;
   ["song","game","story","picture","calm","sleep"].forEach(k => $("q-"+k).textContent = t[k]);
-  $("again-label").textContent = t.again; $("next-label").textContent = t.next; $("stop-label").textContent = t.stop; $("ask-label").textContent = t.ask;
+  $("again-label").textContent = t.again; $("next-label").textContent = t.next; $("stop-label").textContent = t.stop; $("ask-label").textContent = t.ask; $("voice-label").textContent = t.voice;
   $("print-label").textContent = t.print; $("sos-label").textContent = t.sos;
   $("typed-input").placeholder = t.typed; $("typed-go").textContent = t.go;
   $("lang-te").classList.toggle("on", l === "te"); $("lang-en").classList.toggle("on", l === "en");
@@ -285,6 +316,7 @@ $("ask").addEventListener("click", () => { $("mic").scrollIntoView({behavior:"sm
 $("again").addEventListener("click", () => current && speakCard(current.card));
 $("next").addEventListener("click", () => current && nextOne());
 $("stop").addEventListener("click", () => stopAll(false));
+$("voice").addEventListener("click", nextVoice);
 $("print").addEventListener("click", () => { stopAll(false); window.print(); });
 $("typed").addEventListener("submit", e => { e.preventDefault(); handle($("typed-input").value); $("typed-input").value = ""; });
 if ("speechSynthesis" in window) speechSynthesis.getVoices(); // warm up the voice list
