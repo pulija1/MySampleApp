@@ -52,3 +52,4 @@ button,input{font-family:inherit}
 @media print{.age,.age-chip{display:none!important}}
 .safety{list-style:none;padding:10px 12px;margin:0 0 10px;background:#fff3cd;border-radius:14px;color:#5a4300}
 .safety li{margin:4px 0}
+.age-chip{min-height:48px}

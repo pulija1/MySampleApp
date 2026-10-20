@@ -4,14 +4,14 @@ window.CONTENT = {
   en: {
     game: [
       {title: "Peekaboo", minMonths: 6, steps: ["Hide your face behind your hands or a soft cloth.", "Say: Where is grandma?", "Open your hands and say: Peekaboo! Smile big.", "Repeat slowly. Babies love the surprise."]},
-      {title: "Stack and knock", minMonths: 9, steps: ["Stack three or four plastic cups or small boxes.", "Let the child knock them down.", "Clap and cheer. Build again together."]},
-      {title: "Animal sounds", minMonths: 6, steps: ["Say an animal name: cow, cat, dog.", "Make the sound: moo, meow, woof.", "Ask the child to copy you. Laugh together."]},
-      {title: "Ball roll", minMonths: 10, steps: ["Sit on the floor facing the child, legs apart.", "Roll a soft ball gently to them.", "Ask them to roll it back. Cheer every time."]},
+      {title: "Stack and knock", minMonths: 9, steps: ["Stack three or four plastic cups or soft blocks.", "Let the baby knock them down.", "Clap and cheer. Build again together."]},
+      {title: "Animal sounds", minMonths: 6, steps: ["Say an animal name: cow, cat, dog.", "Make the sound: moo, meow, woof.", "Let the baby watch your face and listen. Older children can copy you. Laugh together."]},
+      {title: "Ball roll", minMonths: 10, steps: ["Sit on the floor facing the child, legs apart.", "Roll a soft ball gently to them.", "Older children can roll it back. Cheer every time."]},
       {title: "Clap along", minMonths: 6, steps: ["Hold the baby's hands gently.", "Clap them together while you sing or count one, two, three.", "Go slow, then a little fast, then slow again."]}
     ],
     song: [
       {title: "Little star song", steps: ["Little star up in the night,", "Shining small and shining bright,", "Close your eyes and dream with me,", "Little star, so sleepy."]},
-      {title: "Clap clap song", steps: ["Clap clap, little hands,", "Tap tap, little feet,", "Spin around, sit right down,", "Now a hug so sweet!"]},
+      {title: "Clap clap song", steps: ["Clap clap, little hands,", "Tap tap, little feet,", "Wave your hands up and down,", "Now a hug so sweet!"]},
       {title: "Moon song", steps: ["Hello moon, so round and white,", "Come and play with us tonight,", "Bring a sweet and bring a smile,", "Stay with baby for a while."]},
       {title: "Rain song", steps: ["Pitter patter, rain is here,", "Little drops fall far and near,", "Wiggle fingers, down they go,", "Pitter patter, soft and slow."]}
     ],
@@ -110,7 +110,7 @@ window.KEYWORDS = [
   ["food", ["food","eat","feed","hungry","milk","drink","water","అన్నం","తిన","ఆకలి","పాలు","బువ్వ"]],
   ["song", ["song","sing","music","rhyme","lullaby","పాట","పాడు","పాటలు","సాంగ్"]],
   ["story", ["story","tale","కథ","కధ","కథలు"]],
-  ["game", ["game","play","fun","bored","activity","entertain","ఆట","ఆడు","ఆటలు","గేమ్","ఆడుకో"]],
+  ["game", ["game","play","hide","hidden","find","fun","bored","activity","entertain","ఆట","ఆడు","ఆటలు","గేమ్","ఆడుకో"]],
   ["calm", ["help","సహాయం","హెల్ప్"]],
   ["next", ["another","next","more","different","వేరే","ఇంకొక","ఇంకో","మరొక","ఇంకా"]],
   ["thanks", ["thanks","thank you","thankyou","thank"]],

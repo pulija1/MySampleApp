@@ -48,20 +48,25 @@ function loadActivities(data){
 }
 function findActivity(text, l, onlyToyWords){
   const list = l === "te" ? ACT_TE : ACT_EN;
-  const hit = k => (l === "te" ? text.includes(k) : has(text, k.toLowerCase())) && (!onlyToyWords || k.includes("బొమ్మ") || /toy/i.test(k));
+  // English: every word of the keyword appears ("hide a toy" matches "hide toy").
+  const enHit = k => k.toLowerCase().split(/\s+/).every(w => has(text, w));
+  const hit = k => (l === "te" ? text.includes(k) : enHit(k)) && (!onlyToyWords || k.includes("బొమ్మ") || /toy/i.test(k));
   return list.find(a => (a.keywords || []).some(hit));
 }
 function askedFor8Months(text, l){ return !!ACT && (ACT.keywords[l] || []).some(k => l === "te" ? text.includes(k) : has(text, k.toLowerCase())); }
+// Older games that a researched activity replaces, so "another one" doesn't repeat the same idea.
+const COVERED = {en: ["Peekaboo", "Ball roll"], te: ["peekaboo", "ball_roll", "vessels_drum"]};
+function activitiesActive(){ return ACT_EN.some(fitsAge); }
 function enPool(topic){
   if (topic === "food" && under1()) return CONTENT.en.food_u1;
   let list = CONTENT.en[topic] || CONTENT.en.unknown;
-  if (topic === "game") list = list.concat(ACT_EN);
+  if (topic === "game"){ if (activitiesActive()) list = list.filter(g => !COVERED.en.includes(g.title)); list = list.concat(ACT_EN); }
   const ok = list.filter(fitsAge);
   return ok.length ? ok : list;
 }
 function tePool(t){
   let list = TE[TE_POOLS[t]] || [];
-  if (t === "game") list = list.concat(TE_EXTRA.games, ACT_TE);
+  if (t === "game"){ if (activitiesActive()) list = list.filter(g => !COVERED.te.includes(g.id)); list = list.concat(TE_EXTRA.games, ACT_TE); }
   const ok = list.filter(fitsAge);
   return ok.length ? ok : list;
 }
@@ -78,7 +83,7 @@ function enCard(topic, index, picIndex){
   if (item.needs) card.needs = [].concat(item.needs).join(", ");
   if (item.safety) card.safety = item.safety;
   if (topic === "sleep") card.lines = CONTENT.en.lullaby[0].steps; // tips, then a lullaby to sing
-  if (topic === "picture") { card.picture = PICTURES[picIndex % PICTURES.length]; card.title = card.picture.en; card.steps = (under1() && item.stepsU1 ? item.stepsU1 : item.steps).slice(1); }
+  if (topic === "picture") { card.picture = PICTURES[picIndex % PICTURES.length]; card.title = card.picture.en; card.steps = (under1() && item.stepsU1 ? item.stepsU1 : item.steps).slice(1).map(x => x.replace("This is a cow. Moo!", "This is a " + card.picture.en.toLowerCase() + "!")); }
   if (topic === "emergency" || topic === "sick") card.emergency = true;
   if (topic === "unknown") { card.reply = r.unknown; card.title = ""; card.steps = []; }
   return card;
@@ -98,7 +103,7 @@ function teCardFromItem(topic, item, reply, tips){
     if (topic === "picture"){ card.picture = pictureFor(item.en) || PICTURES[0]; card.title = TE.picture_caption ? TE.picture_caption.replace("{name}", item.te) : item.te; card.pictureName = item.te; }
   }
   if (tips) card.tips = tips;
-  if (topic === "picture" && under1()) card.reply = TE_EXTRA.picture_u1;
+  if (topic === "picture" && under1() && item){ card.reply = TE_EXTRA.picture_u1.replace("'ఇది ఆవు. అంబా!'", "'ఇది " + item.te + "!'"); card.title = item.te; }
   if (item && item.id === "chuk_chuk_railu" && under1()) card.how = TE_EXTRA.chuk_chuk_how_u1;
   if (topic === "food" && under1()) card.tips = (card.tips || []).concat(TE_EXTRA.feeding_u1);
   if (topic === "emergency"){ card.emergency = true; if (under1()) card.tips = [TE_EXTRA.choking_u1].concat(card.tips || []); }
@@ -179,7 +184,7 @@ function handle(raw){
   if (ACT && (r.topic === "game" || r.topic === "unknown" || r.topic === "greeting")){
     const lower = raw.toLowerCase();
     const act = findActivity(lower, "en");
-    if (act && fitsAge(act)) return showActivity("en", act);
+    if (act) return showActivity("en", act);
     if (askedFor8Months(lower, "en")) { const i = Math.floor(Math.random() * ACT_EN.length); return show({lang, topic:"baby8", index:i, card: baby8Card("en", i)}, true); }
   }
   if (r.topic === "stop") return stopAll(true);
@@ -204,10 +209,10 @@ function enCardFromItem(item){
 function handleTe(raw){
   let r = te.matchTelugu(raw, TE);
   // బొమ్మ means both "toy" and "picture": a toy activity ("బొమ్మ దాచు") wins over the picture intent.
-  if (ACT && r.intent === "picture"){ const act = findActivity(raw, "te", true); if (act && fitsAge(act)) return showActivity("te", act); }
+  if (ACT && r.intent === "picture"){ const act = findActivity(raw, "te", true); if (act) return showActivity("te", act); }
   if (ACT && (r.intent === "game" || r.intent === "unknown" || r.intent === "greeting")){
     const act = findActivity(raw, "te");
-    if (act && fitsAge(act)) return showActivity("te", act);
+    if (act) return showActivity("te", act);
     if (askedFor8Months(raw, "te")) { const i = Math.floor(Math.random() * ACT_TE.length); return show({lang, topic:"baby8", index:i, card: baby8Card("te", i)}, true); }
   }
   // Drinking (తాగ) is not in the reviewed keywords yet; treat it as feeding.
@@ -244,7 +249,7 @@ function show(state, speakIt){
   $("answer").hidden = false;
   $("sos").hidden = !card.emergency && card.topic !== "calm";
   $("answer-reply").textContent = card.reply || "";
-  const tipsFirst = ((card.topic === "lullaby" || card.topic === "bath") && card.tips && card.lines) || card.tipsFirstAll;
+  const tipsFirst = ((card.topic === "lullaby" || card.topic === "bath" || (card.topic === "food" && under1())) && card.tips && card.lines) || card.tipsFirstAll;
   $("answer-title").textContent = tipsFirst ? "" : (card.title || "");
   const body = document.createElement("div");
   const add = (tag, text, parent = body) => { const e = document.createElement(tag); e.textContent = text; parent.appendChild(e); return e; };
@@ -310,7 +315,7 @@ function partsOf(card){
   if (card.title && card.topic !== "picture") parts.push(card.title);
   if (card.topic === "picture" && card.picture) parts.push(card.pictureName || card.picture.en);
   if (card.safety) parts.push(...card.safety);            // safety before the steps
-  const tipsFirst = card.topic === "lullaby" || card.topic === "bath" || card.tipsFirstAll; // calm/safe first
+  const tipsFirst = card.topic === "lullaby" || card.topic === "bath" || (card.topic === "food" && under1()) || card.tipsFirstAll; // calm/safe first
   if (tipsFirst && card.tips) parts.push(...card.tips);
   if (card.lines) parts.push(...card.lines);           // one line per utterance so rhymes sound sung
   if (card.text) parts.push(card.text);
@@ -323,17 +328,12 @@ function speakCard(card){ speakParts(partsOf(card)); }
 function speakParts(parts, waited){
   if (!("speechSynthesis" in window)) return;
   speechSynthesis.cancel();
-  // Voices load late on some phones; wait for them once instead of staying silent.
-  if (!waited && !speechSynthesis.getVoices().length){
-    let done = false;
-    const go = () => { if (!done){ done = true; speakParts(parts, true); } };
-    speechSynthesis.addEventListener("voiceschanged", go, {once: true});
-    setTimeout(go, 1500);
-    return;
-  }
+  // Voices can load late; speak right away anyway (iPhone only allows speech started from the tap),
+  // letting the phone pick its default voice for the language until the list arrives.
+  const voicesReady = speechSynthesis.getVoices().length > 0;
   const code = lang === "te" ? "te-IN" : "en-IN";
   const v = voiceFor(code);
-  if (lang === "te" && !v){ $("voice-note").textContent = UI.te.noVoice; $("voice-note").hidden = false; return; } // English voice reading Telugu sounds wrong
+  if (lang === "te" && !v && voicesReady){ $("voice-note").textContent = UI.te.noVoice; $("voice-note").hidden = false; return; } // English voice reading Telugu sounds wrong
   parts.forEach(p => {
     const u = new SpeechSynthesisUtterance(p);
     u.lang = code; u.rate = lang === "te" ? 0.85 : 0.92; u.pitch = 1; if (v) u.voice = v;
