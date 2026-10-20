@@ -101,7 +101,7 @@ function teCardFromItem(topic, item, reply, tips){
   if (topic === "picture" && under1()) card.reply = TE_EXTRA.picture_u1;
   if (item && item.id === "chuk_chuk_railu" && under1()) card.how = TE_EXTRA.chuk_chuk_how_u1;
   if (topic === "food" && under1()) card.tips = (card.tips || []).concat(TE_EXTRA.feeding_u1);
-  if (topic === "emergency"){ card.emergency = true; if (ageMax() <= 23) card.tips = [TE_EXTRA.choking_u1].concat(card.tips || []); }
+  if (topic === "emergency"){ card.emergency = true; if (under1()) card.tips = [TE_EXTRA.choking_u1].concat(card.tips || []); }
   return card;
 }
 function teCard(topic, index){
